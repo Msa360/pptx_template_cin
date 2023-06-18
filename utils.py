@@ -1,6 +1,12 @@
 import copy
+import pptx
 from pptx.shapes.autoshape import Shape
+from pptx.enum.text import PP_ALIGN
+from typing import Union, Optional
 
+# GLOBAL VARS
+SLIDE_LAYOUT = 4 # 6 is a blank one, 4 is good
+MAX_CHARS_PER_LINE = 97 # approximate, experimentally determined
 
 def chunck_text(text: str, lenght: int):
     """chuncks the text into lines that are smaller or equal than 'lenght' arg"""
@@ -49,11 +55,12 @@ def textbox_height_estimate(text: str):
     return (max(n_chars - 100, 0)) * 0.00018 + 0.08
 
 
-def is_slide_full(presentation, textbox_top, textbox_height):
+def is_slide_full(presentation, shape_top, shape_height):
+    """check if the content will fit in the slide"""
     # Get the last slide in the presentation
     slide = presentation.slides[-1]
     shapes = list(slide.shapes)
-    if len(shapes)==0 or presentation.slide_height > textbox_top + textbox_height:
+    if len(shapes)==0 or presentation.slide_height > shape_top + shape_height:
         return False
     else:
         return True
@@ -77,3 +84,39 @@ def clone_shape(shape, left, top, width, height):
 
 def delete_shape(shape, slide):
     slide.shapes._spTree.remove(shape._element)
+
+def find_template_shape(presentation, markup: str):
+    """markup is the template placeholder, raise error in markup isn't found"""
+    used = 0
+    for slide in presentation.slides:
+        for shape in slide.shapes:
+            if not shape.has_text_frame:
+                continue
+            for paragraph in shape.text_frame.paragraphs:
+                if paragraph.text == markup:
+                    yield shape
+                    used += 1
+    if used == 0:
+        raise Exception("template shape wasn't found")
+
+def add_country(presentation, slide, country: dict, banner_shape: Shape, top: int):
+    """returns the bottom of the last item added"""
+    MARGIN = 150000
+    
+    # add banner with country name
+    banner = clone_shape(banner_shape, banner_shape.left, top, banner_shape.width, banner_shape.height)
+    bottom = banner.top + banner.height
+    # add textbox
+    for bodypart in country['body']:
+        if bodypart['subtitle'] != None:
+            # add subtitle
+            pass
+        # add text
+        textbox_height = presentation.slide_height * textbox_height_estimate(bodypart['text'])
+        textbox = slide.shapes.add_textbox(0, bottom + MARGIN, presentation.slide_width, textbox_height)
+        p = textbox.text_frame.add_paragraph()
+        p.font.size = pptx.util.Pt(10)
+        p.text = chunck_text(remove_newlines(bodypart['text']), MAX_CHARS_PER_LINE)
+        p.alignment = PP_ALIGN.CENTER
+        bottom = textbox.top + textbox.height
+    return bottom

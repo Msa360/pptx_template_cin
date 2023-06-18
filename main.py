@@ -6,8 +6,11 @@ from utils import (
     chunck_text, 
     is_slide_full, 
     remove_newlines, 
-    textbox_height_estimate
-    )
+    textbox_height_estimate,
+    add_country,
+    SLIDE_LAYOUT,
+    MAX_CHARS_PER_LINE
+)
 
 
 def add_text_boxes_to_powerpoint(input_file: str, texts: Union[list, tuple], interval: float = 0, output_file="powerpoints/output.pptx"):
@@ -15,9 +18,6 @@ def add_text_boxes_to_powerpoint(input_file: str, texts: Union[list, tuple], int
     interval between 0 and 1
     """
     prs = Presentation(input_file)
-
-    SLIDE_LAYOUT = 4 # 6 is a blank one, 4 is good
-    MAX_CHARS_PER_LINE = 97 # approximate, experimentally determined
 
     # Create a new slide
     slide_layout = prs.slide_layouts[SLIDE_LAYOUT]
@@ -105,7 +105,8 @@ orepsum so cool, it is too awesome! lipsummi euiwoqfhi qwiufewiluqoi u hfewiqu  
 "Python is so awesome!!!"
 ]
 
-# Call the function with the PowerPoint file and list of texts
-add_text_boxes_to_powerpoint("powerpoints/gabarit_veille.pptx", texts, interval=0.05)
+if __name__ == "__main__":
+    # Call the function with the PowerPoint file and list of texts
+    add_text_boxes_to_powerpoint("powerpoints/gabarit_veille.pptx", texts, interval=0.05)
 
 
