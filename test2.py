@@ -2,7 +2,7 @@ from pptx.enum.text import PP_ALIGN
 import pptx
 import copy
 from pptx.shapes.autoshape import Shape
-from utils import add_country, find_template_shape
+from utils import add_country, delete_shape, find_template_shape
 
 test_parsed_dict = {
     "title": "IoT",
@@ -11,7 +11,7 @@ test_parsed_dict = {
         {
             "title": "France",
             "body": [
-                {"subtitle": "Introduction", "text": "La France est un beau pays!"*10},
+                {"subtitle": "Introduction", "text": "La France est un beau pays!"*14},
                 {"subtitle": "Description", "text": "La France est vraiment un super beau pays!"*12}
             ]
         },
@@ -39,9 +39,10 @@ def clone_shape(shape, left, top, width, height):
 # print(text_runs[:30])
 prs = pptx.Presentation("powerpoints/gabarit_mod.pptx")
 banner = list(find_template_shape(prs, "banner"))[0]
-top = banner.top + banner.height + 100000
+top = 100000
 for country in test_parsed_dict["countries"]:
     bottom = add_country(prs, prs.slides[-1], country, banner, top)
     top = bottom + 100000
+delete_shape(banner, prs.slides[-1])
 prs.save('powerpoints/test.pptx')
 

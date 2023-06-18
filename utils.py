@@ -52,7 +52,7 @@ def textbox_height_estimate(text: str):
     this is needed since pptx api can't do it because it would need a rendering engine
     """
     n_chars = len(text)
-    return (max(n_chars - 100, 0)) * 0.00018 + 0.08
+    return (max(n_chars - 100, 0)) * 0.00018 + 0.04
 
 
 def is_slide_full(presentation, shape_top, shape_height):
@@ -105,18 +105,25 @@ def add_country(presentation, slide, country: dict, banner_shape: Shape, top: in
     
     # add banner with country name
     banner = clone_shape(banner_shape, banner_shape.left, top, banner_shape.width, banner_shape.height)
-    bottom = banner.top + banner.height
-    # add textbox
+    banner.text_frame.text = country['title']
+    bottom = banner.top + banner.height + MARGIN
+    
     for bodypart in country['body']:
         if bodypart['subtitle'] != None:
             # add subtitle
-            pass
+            subtitle_height = presentation.slide_height * textbox_height_estimate(bodypart['subtitle'])
+            subtitle = slide.shapes.add_textbox(0, bottom, presentation.slide_width, subtitle_height)
+            subtitle_text = subtitle.text_frame.paragraphs[0]
+            subtitle_text.font.size = pptx.util.Pt(10)
+            subtitle_text.text = chunck_text(remove_newlines(bodypart['subtitle']), MAX_CHARS_PER_LINE)
+            # subtitle_text.alignment = PP_ALIGN.CENTER
+            bottom = subtitle.top + subtitle.height
         # add text
         textbox_height = presentation.slide_height * textbox_height_estimate(bodypart['text'])
-        textbox = slide.shapes.add_textbox(0, bottom + MARGIN, presentation.slide_width, textbox_height)
-        p = textbox.text_frame.add_paragraph()
+        textbox = slide.shapes.add_textbox(0, bottom, presentation.slide_width, textbox_height)
+        p = textbox.text_frame.paragraphs[0]
         p.font.size = pptx.util.Pt(10)
         p.text = chunck_text(remove_newlines(bodypart['text']), MAX_CHARS_PER_LINE)
-        p.alignment = PP_ALIGN.CENTER
+        # p.alignment = PP_ALIGN.CENTER
         bottom = textbox.top + textbox.height
     return bottom
