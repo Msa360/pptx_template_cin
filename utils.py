@@ -68,8 +68,10 @@ def is_slide_full(presentation, shape_top, shape_height):
 
 def clone_shape(shape, left, top, width, height):
         # gotta be careful since the shape_id is read-only, it keeps the same id so the id isn't unique anymore
-        """Add a duplicate of `shape` to the slide on which it appears.
-            Once duplicated, id is obselete, use shape._element to have uniqueness
+        # gotta be careful, the style can change because of hierarchies
+        """
+        Add a duplicate of `shape` to the same slide.
+        Once duplicated, id is obselete, use `shape.element` to have uniqueness.
         """
         shape_obj = shape.element
         sp_tree = shape_obj.getparent()
@@ -85,45 +87,73 @@ def clone_shape(shape, left, top, width, height):
 def delete_shape(shape, slide):
     slide.shapes._spTree.remove(shape._element)
 
-def find_template_shape(presentation, markup: str):
+def find_template_shape(slide, markup: str):
     """markup is the template placeholder, raise error in markup isn't found"""
     used = 0
-    for slide in presentation.slides:
-        for shape in slide.shapes:
-            if not shape.has_text_frame:
-                continue
-            for paragraph in shape.text_frame.paragraphs:
-                if paragraph.text == markup:
-                    yield shape
-                    used += 1
+    for shape in slide.shapes:
+        if not shape.has_text_frame:
+            continue
+        for paragraph in shape.text_frame.paragraphs:
+            if paragraph.text == markup:
+                yield shape
+                used += 1
     if used == 0:
         raise Exception("template shape wasn't found")
 
-def add_country(presentation, slide, country: dict, banner_shape: Shape, top: int):
+
+def add_countries(presentation, slide, countries: dict, top: int):
     """returns the bottom of the last item added"""
     MARGIN = 150000
-    
-    # add banner with country name
-    banner = clone_shape(banner_shape, banner_shape.left, top, banner_shape.width, banner_shape.height)
-    banner.text_frame.text = country['title']
-    bottom = banner.top + banner.height + MARGIN
-    
-    for bodypart in country['body']:
-        if bodypart['subtitle'] != None:
-            # add subtitle
-            subtitle_height = presentation.slide_height * textbox_height_estimate(bodypart['subtitle'])
-            subtitle = slide.shapes.add_textbox(0, bottom, presentation.slide_width, subtitle_height)
-            subtitle_text = subtitle.text_frame.paragraphs[0]
-            subtitle_text.font.size = pptx.util.Pt(10)
-            subtitle_text.text = chunck_text(remove_newlines(bodypart['subtitle']), MAX_CHARS_PER_LINE)
-            # subtitle_text.alignment = PP_ALIGN.CENTER
-            bottom = subtitle.top + subtitle.height
-        # add text
-        textbox_height = presentation.slide_height * textbox_height_estimate(bodypart['text'])
-        textbox = slide.shapes.add_textbox(0, bottom, presentation.slide_width, textbox_height)
-        p = textbox.text_frame.paragraphs[0]
-        p.font.size = pptx.util.Pt(10)
-        p.text = chunck_text(remove_newlines(bodypart['text']), MAX_CHARS_PER_LINE)
-        # p.alignment = PP_ALIGN.CENTER
-        bottom = textbox.top + textbox.height
+
+    bottom = top # at the beginning
+    banner_shape = next(find_template_shape(slide, "banner"))
+    for country in countries:
+        # add banner with country name
+        if is_slide_full(presentation, bottom + MARGIN, banner_shape.height):
+            print("full")
+            # Create a new slide if the current slide is full
+            slide_layout = presentation.slide_layouts[SLIDE_LAYOUT]
+            slide = presentation.slides.add_slide(slide_layout)
+            try:
+                banner_shape = next(find_template_shape(slide, "banner"))
+            except:
+                banner_shape = slide.shapes[0]
+            bottom = 0
+
+        banner = clone_shape(banner_shape, banner_shape.left, bottom + MARGIN, banner_shape.width, banner_shape.height)
+        banner.text_frame.text = country['title']
+        bottom = banner.top + banner.height + MARGIN
+
+        for bodypart in country['body']:
+            if bodypart['subtitle'] != None:
+                # add subtitle
+                subtitle_height = presentation.slide_height * textbox_height_estimate(bodypart['subtitle'])
+                subtitle = slide.shapes.add_textbox(0, bottom, presentation.slide_width, subtitle_height)
+                subtitle_text = subtitle.text_frame.paragraphs[0]
+                subtitle_text.font.size = pptx.util.Pt(11)
+                subtitle_text.font.bold = True
+                subtitle_text.font.color.theme_color = 10
+                subtitle_text.text = chunck_text(remove_newlines(bodypart['subtitle']), MAX_CHARS_PER_LINE)
+                # todo: change color
+                bottom = subtitle.top + subtitle.height
+
+            # add text
+            textbox_height = presentation.slide_height * textbox_height_estimate(bodypart['text'])
+            if is_slide_full(presentation, bottom, textbox_height):
+                print("full")
+                # Create a new slide if the current slide is full
+                slide_layout = presentation.slide_layouts[SLIDE_LAYOUT]
+                slide = presentation.slides.add_slide(slide_layout)
+                try:
+                    banner_shape = next(find_template_shape(slide, "banner"))
+                except:
+                    banner_shape = slide.shapes[0]
+                bottom = 0
+            
+            textbox = slide.shapes.add_textbox(0, bottom, presentation.slide_width, textbox_height)
+            p = textbox.text_frame.paragraphs[0]
+            p.font.size = pptx.util.Pt(10)
+            p.text = chunck_text(remove_newlines(bodypart['text']), MAX_CHARS_PER_LINE)
+            p.alignment = PP_ALIGN.CENTER
+            bottom = textbox.top + textbox.height
     return bottom

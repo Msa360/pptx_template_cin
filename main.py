@@ -7,7 +7,7 @@ from utils import (
     is_slide_full, 
     remove_newlines, 
     textbox_height_estimate,
-    add_country,
+    add_countries,
     SLIDE_LAYOUT,
     MAX_CHARS_PER_LINE
 )
