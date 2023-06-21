@@ -132,7 +132,7 @@ def add_countries(presentation, slide, countries: dict, top: int):
             if bodypart['subtitle'] != None:
                 # add subtitle
                 subtitle_height = presentation.slide_height * textbox_height_estimate(bodypart['subtitle'])
-                subtitle = slide.shapes.add_textbox(0, bottom, presentation.slide_width, subtitle_height)
+                subtitle = slide.shapes.add_textbox(banner_shape.left, bottom, presentation.slide_width, subtitle_height)
                 subtitle_text = subtitle.text_frame.paragraphs[0]
                 subtitle_text.font.size = pptx.util.Pt(11)
                 subtitle_text.font.bold = True
