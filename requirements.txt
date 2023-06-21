@@ -1,0 +1,5 @@
+docx2python==2.7.3
+lxml==4.9.2
+Pillow==9.5.0
+python-pptx==0.6.21
+XlsxWriter==3.1.2
