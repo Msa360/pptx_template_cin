@@ -103,7 +103,8 @@ def find_template_shape(slide, markup: str):
 
 def add_countries(presentation, slide, countries: dict, top: int):
     """returns the bottom of the last item added"""
-    MARGIN = 150000
+    MARGIN = 15_000
+    BANNER_HEIGHT = 400_000 # define arbitrarly to ressemble
 
     bottom = top # at the beginning
     banner_shape = next(find_template_shape(slide, "banner"))
@@ -120,8 +121,11 @@ def add_countries(presentation, slide, countries: dict, top: int):
                 banner_shape = slide.shapes[0]
             bottom = 0
 
-        banner = clone_shape(banner_shape, banner_shape.left, bottom + MARGIN, banner_shape.width, banner_shape.height)
+        banner = clone_shape(banner_shape, banner_shape.left, bottom + MARGIN, banner_shape.width, BANNER_HEIGHT)
         banner.text_frame.text = country['title']
+        banner.text_frame.paragraphs[0].font.color.theme_color = 14
+        banner.text_frame.paragraphs[0].font.bold = True
+        banner.text_frame.paragraphs[0].font.italic = True
         bottom = banner.top + banner.height + MARGIN
 
         for bodypart in country['body']:
