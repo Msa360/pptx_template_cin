@@ -17,7 +17,7 @@ test_parsed_dict = {
                 {"text": "La France est vraiment un super beau pays! "*12}
             ]
         },
-        {"title": "Australie", "body": [{"text": "L'allemagne est un beau pays! "*14}]},
+        {"title": "Australie", "body": [{"text": "L'allemagne est une³ beau pays! "*14}]},
         {"title": "Canada", "body": [{"text": "Le Canada de magne est un superbe de beau pays! "*14}]},
         {"title": "Kenya", "body": [{"text": "Le Kenya de magne est un vraiment beau pays! "*14}]},
         {"title": "Belgique", "body": [{"text": "La Belgique est un beau pays! j'y suis allé. "*14}]}

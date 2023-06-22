@@ -1,4 +1,12 @@
 {
+  "intro": [
+    {
+      "subtitle": "## c\u2019est quoi?"
+    },
+    {
+      "text": "Le quantum computing nucl\u00e9aires. Au moyen de solutions."
+    }
+  ],
   "countries": [
     {
       "title": "Canada",
@@ -10,23 +18,30 @@
           "text": "La sant\u00e9 est \u00c9lectricit\u00e9 de France EDF, l'un des leaders mondiaux dans le domaine de l'\u00e9nergie, utilise l'IA21 pour accro\u00eetre significativement la production et la maintenance de ses installations nucl\u00e9aires. Au moyen de solutions bas\u00e9es sur l'IA, EDF a la capacit\u00e9 de surveiller en temps r\u00e9el le fonctionnement des r\u00e9acteurs nucl\u00e9aires et de pr\u00e9dire les besoins de maintenance. Fort de cela, il devient ainsi possible d'am\u00e9liorer la s\u00fbret\u00e9 de ses installations et d'optimiser la production d'\u00e9nergie."
         },
         {
-          "text": "Il est important de bien mettre ses sources 111111 sources----footnote1----."
+          "text": "Il est important de bien mettre ses sources 111111 sources\u00b9."
         },
         {
-          "text": "\u00c9lectricit\u00e9 de France\u00a0EDF, l'un des leaders mondiaux dans le domaine de l'\u00e9nergie, utilise l'IA21 pour accro\u00eetre significe d'apprentissage en ligne qui utilise l'IA pour adapter le contenu d'apprentissage aux besoins sp\u00e9cifiques de chaque \u00e9tudiant. C\u2019est en plein dans cette dynamique que Century Tech23\u00a0 utilise l'IA pour fournir un apprentissage personnalis\u00e9 au Royaume-Uniativement la production et la maintenance de ses installations nucl\u00e9aires. Au moyen de solutions bas\u00e9es sur l'IA, EDF a la capacit\u00e9 de surveiller en temps r\u00e9el le fonctionnement des r\u00e9acteurs nucl\u00e9aires et de pr\u00e9dire les besoins de maintenance. Fort de cela, il devient ainsi possible d'am\u00e9liorer la s\u00fbret\u00e9 de ses installations et d'optimiser la production d'\u00e9nergie."
-        },
-        {
-          "text": "footnote1)\t www.example.com"
+          "text": "\u00c9lectricit\u00e9 de France\u00a0EDF, l'un des leaders mondiaux dans le domaine de l'\u00e9nergie, utilise l'IA21 pour accro\u00eetre significe d'apprentissage en ligne qui utilise l'IA pour adapter le contenu d'apprentissage aux besoins sp\u00e9cifiques de chaque \u00e9tudiant. C\u2019est en plein dans cette dynamique que Century Tech23\u00a0 utilise l'IA pour fournir un apprentissage personnalis\u00e9\u00b2 au Royaume-Uniativement la production et la maintenance\u00b3 de ses installations nucl\u00e9aires. Au moyen de solutions bas\u00e9es sur l'IA, EDF a la capacit\u00e9 de surveiller en temps r\u00e9el le fonctionnement des r\u00e9acteurs\u2074 nucl\u00e9aires et de pr\u00e9dire les besoins de maintenance. Fort de cela, il devient ainsi possible d'am\u00e9liorer la s\u00fbret\u00e9 de ses installations et d'optimiser la production d'\u00e9nergie."
         }
       ]
     }
   ],
-  "intro": [
+  "sources": [
     {
-      "subtitle": "## c\u2019est quoi?"
+      "number": "1",
+      "text": "www.example.com"
     },
     {
-      "text": "Le quantum computing nucl\u00e9aires. Au moyen de solutions."
+      "number": "2",
+      "text": "www.openai.com"
+    },
+    {
+      "number": "3",
+      "text": "wwwww.badreqqqqqq.com"
+    },
+    {
+      "number": "4",
+      "text": "www.google.com"
     }
   ],
   "title": "L\u2019informatique quantique",
