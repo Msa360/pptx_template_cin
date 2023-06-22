@@ -1,18 +1,25 @@
 {
     "title": "article title here",
     "subtitle": "article subtitle here",
+    "intro": [
+        {"subtitle": "subtitle here"},
+        {"text": "text here"},
+        {"text": "text here"}
+    ],
     "countries": [
         {
             "title": "France",
             "body": [
-                {"subtitle": "subtitle here", "text": "text here"},
-                {"subtitle": "subtitle here", "text": "text here"}
+                {"subtitle": "subtitle here"}, 
+                {"text": "text here"},
+                {"subtitle": "subtitle here"},
+                {"text": "text here"}
             ]
         },
         {
             "title": "Allemagne",
             "body": [
-                {"subtitle": null, "text": "text here"}
+                {"text": "text here"}
             ]
         }
     ],
