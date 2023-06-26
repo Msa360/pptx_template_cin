@@ -1,9 +1,9 @@
 # import docx # https://github.com/python-openxml/python-docx/ old method
 
-# https://github.com/ShayHill/docx2python/ easier for getting footnotes
-from docx2python import docx2python
+from docx2python import docx2python # https://github.com/ShayHill/docx2python/ easier for getting footnotes
 import re
 import json
+
 
 superscript_dict = {
     "0": "\u2070",
@@ -68,7 +68,9 @@ def parse(text: str) -> dict:
             # source from footnote
             line = re.sub(r"footnote([0-9]{1,3})\)", lambda m: "".join(char for char in m.group(1)), line)
             num, source = line.split('\t', 1)
-            state_dict['sources'].append({'number': num.strip(), 'text': source.strip()})
+            state_dict['sources'].append(source.strip())
+        elif  line.strip() == "endnote1)":
+            continue # this is of the word online to word bug that creates endnote1
         else:
             # text paragraph
             if country_index == 0:
@@ -77,15 +79,28 @@ def parse(text: str) -> dict:
                 state_dict['countries'][country_index-1]['body'].append({'text': line.strip()})
     return state_dict
 
+def sources_correction(sources: list[str]):
+    """
+    Docx from word online to word often create an extra empty footnote
+    so this function corrects this behavior 
+    """
+    if sources[0] == "":
+        sources.pop(0)
+    return sources
+
+def full_tree(filepath: str):
+    """
+    Takes the word file path and creates a tree from it
+    """
+    with docx2python(filepath) as docx_content:
+        text = docx_content.text
+        # print(text)
+    text = superscript_footnotes(text)
+    state_dict = parse(text)
+    state_dict['sources'] = sources_correction(state_dict['sources'])
+    return state_dict
 
 if __name__ == "__main__":
-    with docx2python('powerpoints/example.docx') as docx_content:
-        text = docx_content.text
-        text = superscript_footnotes(text)
-        state_dict = parse(text)
-        # print(text)
-        
-        with open("temp.json", 'w') as f:
-            json.dump(state_dict, f, indent=2)
-
-    # print(walk_and_find("bla bla car lol", "car"))
+    state_dict = full_tree('powerpoints/iot.docx')
+    with open("temp.json", 'w') as f:
+        json.dump(state_dict, f, indent=2)

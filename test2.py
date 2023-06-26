@@ -1,8 +1,6 @@
-from pptx.enum.text import PP_ALIGN
 import pptx
-import copy
-from pptx.shapes.autoshape import Shape
-from utils import add_countries, clean_up_shapes, delete_shape, find_template_shape, clone_shape
+from utils import add_countries, clean_up_shapes
+from docx_parser import full_tree
 
 test_parsed_dict = {
     "title": "IoT",
@@ -25,10 +23,13 @@ test_parsed_dict = {
     "sources": [{"number": "1", "text": "www.example1.com"}, {"number": "2", "text": "www.example2.com/thisisanexample?iot=1"}]
 }
 
+state_dict = full_tree('powerpoints/veille_ai.docx')
+# state_dict = full_tree('powerpoints/example.docx')
+
 
 prs = pptx.Presentation("powerpoints/gabarit_mod.pptx")
 top = 100000
-bottom = add_countries(prs, prs.slides[-1], test_parsed_dict["countries"], top)
+bottom = add_countries(prs, prs.slides[-1], state_dict["countries"], top)
 clean_up_shapes(prs, "<banner>") # deletes the template shapes
 prs.save('powerpoints/test.pptx')
 

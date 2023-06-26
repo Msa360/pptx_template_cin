@@ -52,7 +52,7 @@ def textbox_height_estimate(text: str):
     this is needed since pptx api can't do it because it would need a rendering engine
     """
     n_chars = len(text)
-    return (max(n_chars - 100, 0)) * 0.00018 + 0.04
+    return (max(n_chars - 100, 0)) * 0.000183 + 0.03
 
 
 def is_slide_full(presentation, shape_top, shape_height):
@@ -172,3 +172,8 @@ def add_countries(presentation, slide, countries: dict, top: int):
                     p.alignment = PP_ALIGN.CENTER
                     bottom = textbox.top + textbox.height
     return bottom
+
+
+def add_sources(presentation, slide, countries: dict, top: int):
+    """add the sources at the end"""
+    pass 

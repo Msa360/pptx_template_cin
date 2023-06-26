@@ -1,5 +1,10 @@
+certifi==2023.5.7
+charset-normalizer==3.1.0
 docx2python==2.7.3
+idna==3.4
 lxml==4.9.2
 Pillow==9.5.0
 python-pptx==0.6.21
+requests==2.31.0
+urllib3==2.0.3
 XlsxWriter==3.1.2
