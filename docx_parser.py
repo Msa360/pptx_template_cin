@@ -101,6 +101,6 @@ def full_tree(filepath: str):
     return state_dict
 
 if __name__ == "__main__":
-    state_dict = full_tree('powerpoints/iot.docx')
-    with open("temp.json", 'w') as f:
+    state_dict = full_tree('powerpoints/edge_computing.docx')
+    with open("temp_tree.json", 'w') as f:
         json.dump(state_dict, f, indent=2)

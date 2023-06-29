@@ -105,28 +105,38 @@ def clean_up_shapes(presentation, markup: str):
     for slide in presentation.slides:
         for shape in find_template_shape(slide, markup):
             delete_shape(shape, slide)
-                        
 
+
+def add_title(slide, title: str):
+    TITLE_MARKUP = "<title>"
+    title_shape = next(find_template_shape(slide, TITLE_MARKUP))
+    title_shape.text_frame.text = title
+
+
+def add_subtitle(slide, subtitle: str):
+    SUBTITLE_MARKUP = "<subtitle>"
+    subtitle_shape = next(find_template_shape(slide, SUBTITLE_MARKUP))
+    subtitle_shape.text_frame.text = subtitle
 
 def add_countries(presentation, slide, countries: dict, top: int):
     """returns the bottom of the last item added"""
     MARGIN = 15_000
     BANNER_HEIGHT = 400_000 # defined arbitrarily to ressemble canvas
+    BANNER_MARKUP = "<banner>"
 
     bottom = top # at the beginning
-    banner_shape = next(find_template_shape(slide, "<banner>"))
+    banner_shape = next(find_template_shape(slide, BANNER_MARKUP))
     for country in countries:
         # add banner with country name
         if is_slide_full(presentation, bottom + MARGIN, banner_shape.height):
-            print("full")
             # Create a new slide if the current slide is full
             slide_layout = presentation.slide_layouts[SLIDE_LAYOUT]
             slide = presentation.slides.add_slide(slide_layout)
             try:
-                banner_shape = next(find_template_shape(slide, "<banner>"))
+                banner_shape = next(find_template_shape(slide, BANNER_MARKUP))
             except:
                 banner_shape = slide.shapes[0]
-                banner_shape.text_frame.text = "<banner>"
+                banner_shape.text_frame.text = BANNER_MARKUP
             bottom = 0
 
         banner = clone_shape(banner_shape, banner_shape.left, bottom + MARGIN, banner_shape.width, BANNER_HEIGHT)
@@ -137,43 +147,45 @@ def add_countries(presentation, slide, countries: dict, top: int):
         bottom = banner.top + banner.height + MARGIN
 
         for bodypart in country['body']:
-            for k, v  in bodypart.items():
-                if k == 'subtitle':
-                    # add subtitle
-                    subtitle_height = presentation.slide_height * textbox_height_estimate(v)
-                    subtitle = slide.shapes.add_textbox(banner_shape.left, bottom, presentation.slide_width, subtitle_height)
-                    subtitle_text = subtitle.text_frame.paragraphs[0]
-                    subtitle_text.font.size = pptx.util.Pt(11)
-                    subtitle_text.font.bold = True
-                    subtitle_text.font.color.theme_color = 10
-                    subtitle_text.text = chunck_text(remove_newlines(v), MAX_CHARS_PER_LINE)
-                    # todo: change color
-                    bottom = subtitle.top + subtitle.height
-
-                if k == 'text':
-                    # add text
-                    textbox_height = presentation.slide_height * textbox_height_estimate(v)
-                    if is_slide_full(presentation, bottom, textbox_height):
-                        print("full")
-                        # Create a new slide if the current slide is full
-                        slide_layout = presentation.slide_layouts[SLIDE_LAYOUT]
-                        slide = presentation.slides.add_slide(slide_layout)
-                        try:
-                            banner_shape = next(find_template_shape(slide, "<banner>"))
-                        except:
-                            banner_shape = slide.shapes[0]
-                            banner_shape.text_frame.text = "<banner>"
-                        bottom = 0
-
-                    textbox = slide.shapes.add_textbox(0, bottom, presentation.slide_width, textbox_height)
-                    p = textbox.text_frame.paragraphs[0]
-                    p.font.size = pptx.util.Pt(10)
-                    p.text = chunck_text(remove_newlines(v), MAX_CHARS_PER_LINE)
-                    p.alignment = PP_ALIGN.CENTER
-                    bottom = textbox.top + textbox.height
+            kv = tuple(bodypart.items())
+            if len(kv) == 1:
+                k, v = kv[0]
+            else:
+                raise Exception(f"Error while reading {bodypart} dict from article tree dict")
+            
+            if k == 'subtitle':
+                # add subtitle
+                subtitle_height = presentation.slide_height * textbox_height_estimate(v)
+                subtitle = slide.shapes.add_textbox(banner_shape.left, bottom, presentation.slide_width, subtitle_height)
+                subtitle_text = subtitle.text_frame.paragraphs[0]
+                subtitle_text.font.size = pptx.util.Pt(11)
+                subtitle_text.font.bold = True
+                subtitle_text.font.color.theme_color = 10
+                subtitle_text.text = chunck_text(remove_newlines(v), MAX_CHARS_PER_LINE)
+                # todo: change color
+                bottom = subtitle.top + subtitle.height
+            if k == 'text':
+                # add text
+                textbox_height = presentation.slide_height * textbox_height_estimate(v)
+                if is_slide_full(presentation, bottom, textbox_height):
+                    # Create a new slide if the current slide is full
+                    slide_layout = presentation.slide_layouts[SLIDE_LAYOUT]
+                    slide = presentation.slides.add_slide(slide_layout)
+                    try:
+                        banner_shape = next(find_template_shape(slide, BANNER_MARKUP))
+                    except:
+                        banner_shape = slide.shapes[0]
+                        banner_shape.text_frame.text = BANNER_MARKUP
+                    bottom = 0
+                textbox = slide.shapes.add_textbox(0, bottom, presentation.slide_width, textbox_height)
+                p = textbox.text_frame.paragraphs[0]
+                p.font.size = pptx.util.Pt(10)
+                p.text = chunck_text(remove_newlines(v), MAX_CHARS_PER_LINE)
+                p.alignment = PP_ALIGN.CENTER
+                bottom = textbox.top + textbox.height
     return bottom
 
 
-def add_sources(presentation, slide, countries: dict, top: int):
+def add_sources(presentation, slide, sources: list, top: int):
     """add the sources at the end"""
     pass 

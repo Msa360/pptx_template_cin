@@ -24,7 +24,7 @@
         }
     ],
     "sources": [
-        {"number": "1", "text": "www.example.com"},
-        {"number": "2", "text": "www.example.com"}
+        "www.example.com",
+        "www.example2.com"
     ]
 }
