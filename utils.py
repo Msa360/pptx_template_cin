@@ -7,6 +7,10 @@ from typing import Union, Optional
 # GLOBAL VARS
 SLIDE_LAYOUT = 4 # 6 is a blank one, 4 is good
 MAX_CHARS_PER_LINE = 97 # approximate, experimentally determined
+BANNER_HEIGHT = 400_000 # defined arbitrarily to ressemble canvas
+BANNER_MARKUP = "<banner>"
+SOURCE_MARKUP = "<source>"
+
 
 def chunck_text(text: str, lenght: int):
     """chuncks the text into lines that are smaller or equal than 'lenght' arg"""
@@ -121,8 +125,6 @@ def add_subtitle(slide, subtitle: str):
 def add_countries(presentation, slide, countries: dict, top: int):
     """returns the bottom of the last item added"""
     MARGIN = 15_000
-    BANNER_HEIGHT = 400_000 # defined arbitrarily to ressemble canvas
-    BANNER_MARKUP = "<banner>"
 
     bottom = top # at the beginning
     banner_shape = next(find_template_shape(slide, BANNER_MARKUP))
@@ -181,11 +183,29 @@ def add_countries(presentation, slide, countries: dict, top: int):
                 p = textbox.text_frame.paragraphs[0]
                 p.font.size = pptx.util.Pt(10)
                 p.text = chunck_text(remove_newlines(v), MAX_CHARS_PER_LINE)
-                p.alignment = PP_ALIGN.CENTER
+                # p.alignment = PP_ALIGN.CENTER
                 bottom = textbox.top + textbox.height
     return bottom
 
 
-def add_sources(presentation, slide, sources: list, top: int):
+def add_sources(presentation, sources: list, top: int):
     """add the sources at the end"""
-    pass 
+
+    # add banner
+    slide_layout = presentation.slide_layouts[SLIDE_LAYOUT]
+    slide = presentation.slides.add_slide(slide_layout)
+    banner_shape = slide.shapes[0]
+    banner_shape.text_frame.text = BANNER_MARKUP
+    banner = clone_shape(banner_shape, banner_shape.left, banner_shape.top, banner_shape.width, BANNER_HEIGHT)
+    banner.text_frame.text = "Sources"
+    banner.text_frame.paragraphs[0].font.color.theme_color = 14
+    banner.text_frame.paragraphs[0].font.bold = True
+    banner.text_frame.paragraphs[0].font.italic = True
+
+    # add sources
+    for i in range(len(sources)):
+        template = list(find_template_shape(presentation.slides[-2], SOURCE_MARKUP))[0]
+        template.text_frame.paragraphs[i].text = sources[i]
+        template.text_frame.paragraphs[i].runs[0].hyperlink.address = sources[i]
+        template.text_frame.paragraphs[i].font.size = pptx.util.Pt(8)
+    
