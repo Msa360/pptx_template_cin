@@ -1,6 +1,6 @@
 import pptx
 
-prs = pptx.Presentation("powerpoints/gabarit_mod.pptx")
+prs = pptx.Presentation("powerpoints/test.pptx")
 
 
 def print_all_text(presentation):
@@ -14,11 +14,12 @@ def print_all_text(presentation):
             if not shape.has_text_frame:
                 continue
             for paragraph in shape.text_frame.paragraphs:
-                print("p:", paragraph.text)
+                if paragraph.text == "<source>":
+                    print("p:", paragraph.text)
                 for run in paragraph.runs:
-                    text_runs.append(run.text)
+                    text_runs.append(run.font.name)
 
-    print(text_runs[:15])
+    print(text_runs[-27:-15])
 
 print_all_text(prs)
 # prs.save('test.pptx')
