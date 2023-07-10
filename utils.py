@@ -2,14 +2,17 @@ import copy
 import pptx
 from pptx.shapes.autoshape import Shape
 from pptx.enum.text import PP_ALIGN
-from typing import Union, Optional
+from typing import List, Dict
 
 # GLOBAL VARS
 SLIDE_LAYOUT = 4 # 6 is a blank one, 4 is good
 MAX_CHARS_PER_LINE = 97 # approximate, experimentally determined
 BANNER_HEIGHT = 400_000 # defined arbitrarily to ressemble canvas
 BANNER_MARKUP = "<banner>"
+SOURCE_BANNER_MARKUP = "<source_banner>"
 SOURCE_MARKUP = "<source>"
+SUBTITLE_LMARGIN = 138545
+
 
 
 def chunck_text(text: str, lenght: int):
@@ -91,6 +94,11 @@ def clone_shape(shape, left, top, width, height):
 def delete_shape(shape, slide):
     slide.shapes._spTree.remove(shape._element)
 
+def move_slide(presentation, old_index, new_index):
+    slides = list(presentation.slides._sldIdLst)
+    presentation.slides._sldIdLst.remove(slides[old_index])
+    presentation.slides._sldIdLst.insert(new_index, slides[old_index])
+
 def find_template_shape(slide, markup: str):
     """markup is the template placeholder, raise error in markup isn't found"""
     used = 0
@@ -107,8 +115,11 @@ def find_template_shape(slide, markup: str):
 def clean_up_shapes(presentation, markup: str):
     """deletes template shapes"""
     for slide in presentation.slides:
-        for shape in find_template_shape(slide, markup):
-            delete_shape(shape, slide)
+        try:
+            for shape in find_template_shape(slide, markup):
+                delete_shape(shape, slide)
+        except:
+            pass
 
 
 def add_title(slide, title: str):
@@ -122,7 +133,50 @@ def add_subtitle(slide, subtitle: str):
     subtitle_shape = next(find_template_shape(slide, SUBTITLE_MARKUP))
     subtitle_shape.text_frame.text = subtitle
 
-def add_countries(presentation, slide, countries: dict, top: int):
+def add_intro(presentation, slide, intro: List[Dict], top: int):
+
+    bottom = top # at the beginning
+    for bodypart in intro:
+        kv = tuple(bodypart.items())
+        if len(kv) == 1:
+            k, v = kv[0]
+        else:
+            raise Exception(f"Error while reading {bodypart} dict from article tree dict")
+        
+        if k == 'subtitle':
+            # add subtitle
+            subtitle_height = presentation.slide_height * textbox_height_estimate(v)
+            subtitle = slide.shapes.add_textbox(SUBTITLE_LMARGIN, bottom, presentation.slide_width, subtitle_height)
+            subtitle_text = subtitle.text_frame.paragraphs[0]
+            subtitle_text.font.size = pptx.util.Pt(11)
+            subtitle_text.font.bold = True
+            subtitle_text.font.color.theme_color = 10
+            subtitle_text.text = chunck_text(remove_newlines(v), MAX_CHARS_PER_LINE)
+            # todo: change color
+            bottom = subtitle.top + subtitle.height
+        if k == 'text':
+            # add text
+            textbox_height = presentation.slide_height * textbox_height_estimate(v)
+            if is_slide_full(presentation, bottom, textbox_height):
+                # Create a new slide if the current slide is full
+                slide_layout = presentation.slide_layouts[SLIDE_LAYOUT]
+                slide = presentation.slides.add_slide(slide_layout)
+                try:
+                    banner_shape = next(find_template_shape(slide, BANNER_MARKUP))
+                except:
+                    banner_shape = slide.shapes[0]
+                    banner_shape.text_frame.text = BANNER_MARKUP
+                bottom = 0
+            textbox = slide.shapes.add_textbox(0, bottom, presentation.slide_width, textbox_height)
+            p = textbox.text_frame.paragraphs[0]
+            p.font.size = pptx.util.Pt(10)
+            p.text = chunck_text(remove_newlines(v), MAX_CHARS_PER_LINE)
+            p.alignment = PP_ALIGN.CENTER
+            bottom = textbox.top + textbox.height
+    return slide, bottom
+
+
+def add_countries(presentation, slide, countries: List[Dict], top: int):
     """returns the bottom of the last item added"""
     MARGIN = 15_000
 
@@ -158,7 +212,7 @@ def add_countries(presentation, slide, countries: dict, top: int):
             if k == 'subtitle':
                 # add subtitle
                 subtitle_height = presentation.slide_height * textbox_height_estimate(v)
-                subtitle = slide.shapes.add_textbox(banner_shape.left, bottom, presentation.slide_width, subtitle_height)
+                subtitle = slide.shapes.add_textbox(SUBTITLE_LMARGIN, bottom, presentation.slide_width, subtitle_height)
                 subtitle_text = subtitle.text_frame.paragraphs[0]
                 subtitle_text.font.size = pptx.util.Pt(11)
                 subtitle_text.font.bold = True
@@ -183,20 +237,20 @@ def add_countries(presentation, slide, countries: dict, top: int):
                 p = textbox.text_frame.paragraphs[0]
                 p.font.size = pptx.util.Pt(10)
                 p.text = chunck_text(remove_newlines(v), MAX_CHARS_PER_LINE)
-                # p.alignment = PP_ALIGN.CENTER
+                p.alignment = PP_ALIGN.CENTER
                 bottom = textbox.top + textbox.height
     return bottom
 
 
-def add_sources(presentation, sources: list, top: int):
-    """add the sources at the end"""
-
+def add_sources(presentation, slide, sources: list, top: int):
+    """add the sources and moves the slide to the end"""
+    
     # add banner
-    slide_layout = presentation.slide_layouts[SLIDE_LAYOUT]
-    slide = presentation.slides.add_slide(slide_layout)
-    banner_shape = slide.shapes[0]
-    banner_shape.text_frame.text = BANNER_MARKUP
+    # slide_layout = presentation.slide_layouts[SLIDE_LAYOUT]
+    # slide = presentation.slides.add_slide(slide_layout)
+    banner_shape = list(find_template_shape(slide, SOURCE_BANNER_MARKUP))[0]
     banner = clone_shape(banner_shape, banner_shape.left, banner_shape.top, banner_shape.width, BANNER_HEIGHT)
+    banner.height = BANNER_HEIGHT
     banner.text_frame.text = "Sources"
     banner.text_frame.paragraphs[0].font.color.theme_color = 14
     banner.text_frame.paragraphs[0].font.bold = True
@@ -204,8 +258,10 @@ def add_sources(presentation, sources: list, top: int):
 
     # add sources
     for i in range(len(sources)):
-        template = list(find_template_shape(presentation.slides[-2], SOURCE_MARKUP))[0]
+        template = list(find_template_shape(slide, SOURCE_MARKUP))[0]
         template.text_frame.paragraphs[i].text = sources[i]
         template.text_frame.paragraphs[i].runs[0].hyperlink.address = sources[i]
         template.text_frame.paragraphs[i].font.size = pptx.util.Pt(8)
+    
+    move_slide(presentation, presentation.slides.index(slide), len(list(presentation.slides)))
     

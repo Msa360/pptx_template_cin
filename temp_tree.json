@@ -1,13 +1,13 @@
 {
   "intro": [
     {
-      "subtitle": "## Qu\u2019est-ce que l\u2019informatique de p\u00e9riph\u00e9rie\u00a0?"
+      "subtitle": "Qu\u2019est-ce que l\u2019informatique de p\u00e9riph\u00e9rie\u00a0?"
     },
     {
       "text": "L\u2019informatique de p\u00e9riph\u00e9rie, ou Edge Computing, est un paradigme informatique visant \u00e0 rendre plus efficace les syst\u00e8mes utilisant l\u2019infonuagique. Alors que la tendance chez les grandes entreprises est g\u00e9n\u00e9ralement de centraliser les infrastructures informatiques sur un serveur dans le nuage\u00b9, l\u2019informatique de p\u00e9riph\u00e9rie consiste plut\u00f4t \u00e0 traiter les donn\u00e9es \u00e0 proximit\u00e9 de leur source. Cela a plusieurs avantages tels qu\u2019un temps de r\u00e9ponse plus rapide, une moins grande d\u00e9pendance au r\u00e9seau et une utilisation plus \u00e9conomique de la bande passante."
     },
     {
-      "subtitle": "## Pourquoi est-ce n\u00e9cessaire ?"
+      "subtitle": "Pourquoi est-ce n\u00e9cessaire ?"
     },
     {
       "text": "Malgr\u00e9 qu\u2019Internet soit tr\u00e8s rapide, car les donn\u00e9es voyagent \u00e0 la vitesse de la lumi\u00e8re, ce n\u2019est pas instantan\u00e9, et sur de longues distances, cela peut impacter la vitesse de traitement de l\u2019information. Certains usages de l\u2019informatique n\u00e9cessitent un temps de r\u00e9ponse presque instantan\u00e9 et ne peuvent pas supporter qu\u2019il y ait de la latence. Pour pallier cela, des entreprises vont installer des machines en p\u00e9riph\u00e9rie. C\u2019est-\u00e0-dire qu\u2019au lieu d\u2019utiliser un serveur central, il y a un serveur \u00e0 proximit\u00e9 de chaque infrastructure. L\u2019informatique de p\u00e9riph\u00e9rie est utile dans diff\u00e9rents cas, notamment pour les entreprises qui ont des services num\u00e9riques \u00e9parpill\u00e9s dans plusieurs endroits et qui veulent que leurs services soient extr\u00eamement rapides peu importe l\u2019emplacement de l\u2019utilisateur. Au lieu que les donn\u00e9es soient toujours envoy\u00e9es sur un serveur central, qui est potentiellement \u00e9loign\u00e9 g\u00e9ographiquement, les donn\u00e9es sont trait\u00e9es sur une machine \u00e0 proximit\u00e9, \u00e9vitant de devoir traverser de longues distances et r\u00e9duisant la latence dans le traitement de l\u2019information."
@@ -78,14 +78,14 @@
   ],
   "sources": [
     "https://explodingtopics.com/blog/corporate-cloud-data",
-    "https://www.cengn.ca/services/commercialization-services/smart-agriculture-program/",
-    "https://www.cloudflare.com/application-services/",
-    "https://vercel.com/docs/concepts/edge-network/overview",
-    "https://www.iothub.com.au/news/chevron-scales-up-industrial-iot-pilot-513758",
+    "www.cengn.ca/services/commercialization-services/smart-agriculture-program/",
+    "www.cloudflare.com/application-services/",
+    "vercel.com/docs/concepts/edge-network/overview",
+    "www.iothub.com.au/news/chevron-scales-up-industrial-iot-pilot-513758",
     "https://www.datacenterknowledge.com/microsoft/how-microsoft-extending-its-cloud-chevron-s-oil-fields",
-    "https://www.lepoint.fr/services/menta-le-leader-europeen-de-la-reprogrammation-hardware-embarquee-28-03-2022-2469874_4345.php",
-    "https://ori.co/multicloud-networking",
-    "https://zededa.com/products/",
+    "www.lepoint.fr/services/menta-le-leader-europeen-de-la-reprogrammation-hardware-embarquee-28-03-2022-2469874_4345.php",
+    "ori.co/multicloud-networking",
+    "zededa.com/products/",
     "https://www.stengg.com/en/digital-tech/data-science-analytics-and-ai/video-analytics/",
     "https://www.stengg.com/en/digital-tech/data-science-analytics-and-ai/edge-analytics/"
   ],

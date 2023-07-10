@@ -62,7 +62,7 @@ def parse(text: str) -> dict:
                 state_dict['countries'][country_index-1]['body'].append({'subtitle': line[3:].strip()})
             else:
                 # intro subtitle
-                state_dict['intro'].append({'subtitle': line.strip()})
+                state_dict['intro'].append({'subtitle': line[3:].strip()})
 
         elif re.search(r"footnote([0-9]{1,3})\)", line):
             # source from footnote
