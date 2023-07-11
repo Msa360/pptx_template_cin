@@ -1,8 +1,11 @@
+"""Handles word document input parsing"""
+
 # import docx # https://github.com/python-openxml/python-docx/ old method
 
 from docx2python import docx2python # https://github.com/ShayHill/docx2python/ easier for getting footnotes
 import re
 import json
+
 
 
 superscript_dict = {
@@ -88,7 +91,7 @@ def sources_correction(sources: list[str]):
         sources.pop(0)
     return sources
 
-def full_tree(filepath: str):
+def word_tree(filepath: str):
     """
     Takes the word file path and creates a tree from it
     """
@@ -101,6 +104,6 @@ def full_tree(filepath: str):
     return state_dict
 
 if __name__ == "__main__":
-    state_dict = full_tree('powerpoints/edge_computing.docx')
+    state_dict = word_tree('powerpoints/edge_computing.docx')
     with open("temp_tree.json", 'w') as f:
         json.dump(state_dict, f, indent=2)
