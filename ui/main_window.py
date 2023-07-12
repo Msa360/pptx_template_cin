@@ -1,8 +1,8 @@
 from tkinter import Tk, Button, Label, Entry, filedialog
 import tkinter as tk
 import webbrowser
-
-from ui.loading import LoadingScreen
+import os
+from ui.loading import SuccessScreen
 
 class MainWindow(Tk):
     def __init__(self):
@@ -10,6 +10,7 @@ class MainWindow(Tk):
         This is the main window of the app.
         """
         super().__init__()
+
         self.title("Word-2-Powerpoint")
         self.label_bienvenue = Label(text="Veuiller chosir un fichier word a transformer")
         self.label_bienvenue.grid(row=0, column=0, padx=10, pady=10)
@@ -37,20 +38,47 @@ class MainWindow(Tk):
         self.help_link.bind("<Button-1>", lambda e: webbrowser.open_new_tab("https://github.com/Msa360/pptx_template_cin/blob/master/docs.md"))
 
     def choose_input_file(self):
-        f = filedialog.askopenfile(parent=self)
-        if f is not None:
-            self.input_filename = f.name
-            self.input_file = f.read()
-            f.close()
-            self.file_entry_text.set(self.input_filename)
+        filename = filedialog.askopenfilename(parent=self)
+        if filename != "":
+            self.file_entry_text.set(filename)
 
     def choose_output_dir(self):
         dir = filedialog.askdirectory(parent=self, mustexist=True)
-        self.output_dir = dir
-        self.dir_entry_text.set(self.output_dir)
+        if dir != "":
+            self.dir_entry_text.set(dir)
+
+    def make_output_file(self):
+        output_file = os.path.join(self.dir_entry_text.get(), os.path.basename(self.file_entry_text.get()).rsplit(".", 1)[0]+".pptx")
+        i = 1
+        while os.path.exists(output_file):
+            if i == 1:
+                output_file = output_file[:-5] + str(i) + ".pptx"
+            else:
+                output_file = output_file[:-6] + str(i) + ".pptx"
+            i += 1
+        return output_file
 
     def make_pptx(self):
         # create a loading window
-        loading_screen = LoadingScreen(self)
-        # call pptx creator
+        # loading_screen = LoadingScreen(self)
+        # call pptx creator todo: make this code better
+        import pptx
+        import word2pptx as wpx
+        
+        state_dict = wpx.word_tree(self.file_entry_text.get())
+        prs = pptx.Presentation("powerpoints/gabarit_v1.pptx")
+        top = 3_000_000 # decided arbitrarily
+        wpx.add_title(prs.slides[0], state_dict["title"])
+        wpx.add_subtitle(prs.slides[0], state_dict["subtitle"])
+        slide, bottom = wpx.add_intro(prs, prs.slides[0], state_dict["intro"], top)
+        bottom = wpx.add_countries(prs, slide, state_dict["countries"], bottom)
+        wpx.add_sources(prs, prs.slides[1], state_dict["sources"], 0)
+        # deletes the template shapes
+        wpx.clean_up_shapes(prs, "<banner>") 
+        wpx.clean_up_shapes(prs, "<source_banner>")
+        # clean_up_shapes(prs, "<source>") # issues with because it deletes the whole shape
+        output_file = self.make_output_file()
+        prs.save(output_file)
+        # end call pptx creator
+        loading_screen = SuccessScreen(self)
         self.wait_window(loading_screen)
