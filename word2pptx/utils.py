@@ -5,7 +5,7 @@ from pptx.enum.text import PP_ALIGN
 from typing import List, Dict
 
 # GLOBAL VARS
-SLIDE_LAYOUT = 4 # 6 is a blank one, 4 is good
+SLIDE_LAYOUT = 5 # style of slide
 MAX_CHARS_PER_LINE = 97 # approximate, experimentally determined
 BANNER_HEIGHT = 400_000 # defined arbitrarily to ressemble canvas
 BANNER_MARKUP = "<banner>"
@@ -171,7 +171,7 @@ def add_intro(presentation, slide, intro: List[Dict], top: int):
             p = textbox.text_frame.paragraphs[0]
             p.font.size = pptx.util.Pt(10)
             p.text = chunck_text(remove_newlines(v), MAX_CHARS_PER_LINE)
-            p.alignment = PP_ALIGN.CENTER
+            # p.alignment = PP_ALIGN.CENTER
             bottom = textbox.top + textbox.height
     return slide, bottom
 
@@ -237,7 +237,7 @@ def add_countries(presentation, slide, countries: List[Dict], top: int):
                 p = textbox.text_frame.paragraphs[0]
                 p.font.size = pptx.util.Pt(10)
                 p.text = chunck_text(remove_newlines(v), MAX_CHARS_PER_LINE)
-                p.alignment = PP_ALIGN.CENTER
+                # p.alignment = PP_ALIGN.CENTER
                 bottom = textbox.top + textbox.height
     return bottom
 

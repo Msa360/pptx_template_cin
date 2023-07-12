@@ -12,7 +12,7 @@ from word2pptx import (
 state_dict = word_tree('powerpoints/edge_computing.docx')
 
 
-prs = pptx.Presentation("powerpoints/gabarit_mod.pptx")
+prs = pptx.Presentation("powerpoints/gabarit_v1.pptx")
 top = 3_000_000 # decided arbitrarily
 add_title(prs.slides[0], state_dict["title"])
 add_subtitle(prs.slides[0], state_dict["subtitle"])
@@ -24,5 +24,5 @@ clean_up_shapes(prs, "<banner>")
 clean_up_shapes(prs, "<source_banner>")
 # clean_up_shapes(prs, "<source>") # issues with because it deletes the whole shape
 
-prs.save('powerpoints/test2.pptx')
+prs.save('powerpoints/test.pptx')
 
