@@ -8,7 +8,7 @@ pyinstaller --name word-2-pptx --icon=assets/app-icon.ico --onefile --windowed m
 ```
 
 ## GitHub release
-push a commit to master with a tag 'v0.1.2' if version is 0.1.2 
+push a commit to master with a tag 'v*.*.*' if version is 0.1.2 'v0.1.2'
 
 **ui** contains all stuff about the graphical user interface with tkinter.
 
