@@ -2,7 +2,7 @@ from tkinter import Tk, Button, Label, Entry, filedialog
 import tkinter as tk
 import webbrowser
 import os, sys
-from ui.loading import SuccessScreen
+from ui.loading import StatusScreen
 
 def resource_path(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
@@ -74,23 +74,27 @@ class MainWindow(Tk):
         # create a loading window
         # loading_screen = LoadingScreen(self)
         # call pptx creator todo: make this code better
-        import pptx
-        import word2pptx as wpx
-        
-        state_dict = wpx.word_tree(self.file_entry_text.get())
-        prs = pptx.Presentation(resource_path(os.path.join("powerpoints", "gabarit_v1.pptx")))
-        top = 3_000_000 # decided arbitrarily
-        wpx.add_title(prs.slides[0], state_dict["title"])
-        wpx.add_subtitle(prs.slides[0], state_dict["subtitle"])
-        slide, bottom = wpx.add_intro(prs, prs.slides[0], state_dict["intro"], top)
-        bottom = wpx.add_countries(prs, slide, state_dict["countries"], bottom)
-        wpx.add_sources(prs, prs.slides[1], state_dict["sources"], 0)
-        # deletes the template shapes
-        wpx.clean_up_shapes(prs, "<banner>") 
-        wpx.clean_up_shapes(prs, "<source_banner>")
-        # clean_up_shapes(prs, "<source>") # issues with because it deletes the whole shape
-        output_file = self.make_output_file()
-        prs.save(output_file)
-        # end call pptx creator
-        loading_screen = SuccessScreen(self)
+        try:
+            import pptx
+            import word2pptx as wpx
+
+            state_dict = wpx.word_tree(self.file_entry_text.get())
+            prs = pptx.Presentation(resource_path(os.path.join("powerpoints", "gabarit_v1.pptx")))
+            top = 3_000_000 # decided arbitrarily
+            wpx.add_title(prs.slides[0], state_dict["title"])
+            wpx.add_subtitle(prs.slides[0], state_dict["subtitle"])
+            slide, bottom = wpx.add_intro(prs, prs.slides[0], state_dict["intro"], top)
+            bottom = wpx.add_countries(prs, slide, state_dict["countries"], bottom)
+            wpx.add_sources(prs, prs.slides[1], state_dict["sources"], 0)
+            # deletes the template shapes
+            wpx.clean_up_shapes(prs, "<banner>") 
+            wpx.clean_up_shapes(prs, "<source_banner>")
+            # clean_up_shapes(prs, "<source>") # issues with because it deletes the whole shape
+            output_file = self.make_output_file()
+            prs.save(output_file)
+            # end call pptx creator
+        except Exception as e:
+            loading_screen = StatusScreen(self, str(e))
+        else:
+            loading_screen = StatusScreen(self, "Succès!")
         self.wait_window(loading_screen)
