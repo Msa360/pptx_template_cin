@@ -1,8 +1,20 @@
 from tkinter import Tk, Button, Label, Entry, filedialog
 import tkinter as tk
 import webbrowser
-import os
+import os, sys
 from ui.loading import SuccessScreen
+
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
+
+
 
 class MainWindow(Tk):
     def __init__(self):
@@ -66,7 +78,7 @@ class MainWindow(Tk):
         import word2pptx as wpx
         
         state_dict = wpx.word_tree(self.file_entry_text.get())
-        prs = pptx.Presentation("powerpoints/gabarit_v1.pptx")
+        prs = pptx.Presentation(resource_path(os.path.join("powerpoints", "gabarit_v1.pptx")))
         top = 3_000_000 # decided arbitrarily
         wpx.add_title(prs.slides[0], state_dict["title"])
         wpx.add_subtitle(prs.slides[0], state_dict["subtitle"])

@@ -1,9 +1,8 @@
-# PowerPoint Template v0.0.2
+# Word 2 Powerpoint v0.0.2
 
-Easily place text to specified placeholders in powerpoint
+Facilement convertir un fichiers word en un fichier powerpoint formatté
 
-Goal is to make it a windows exe with [pyinstaller](https://pyinstaller.org/en/stable/)
 
-Voir la [documentation](docs.md)
+Voir la [documentation](docs.md) pour l'utilisation
 
-Voir la [documentation pour le development](dev-docs.md)
+Voir [dev-docs.md](dev-docs.md) pour le development
