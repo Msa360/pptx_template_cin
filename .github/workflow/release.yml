@@ -1,0 +1,60 @@
+name: Release new version
+
+on:
+  push:
+    branches:
+      - master
+    tags:
+      - 'v*.*.*' # Push events to matching v*, i.e. v1.0.0, v20.15.10
+
+jobs:
+  build-windows:
+
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Python
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.9' 
+      
+      - name: Install Requirements
+        run: |
+          pip install -r requirements.txt
+          pip install pyinstaller
+
+      - name: Build with PyInstaller
+        run: |
+          python -m pyinstaller --name word-2-pptx --icon=assets/app-icon.ico --onefile --windowed main.py
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: Windows-word-2-pptx
+          path: dist/word-2-pptx.exe
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create_release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          body: |
+            Changes in this Release:
+            ${{ github.event.head_commit.message }}
+          draft: false
+          prerelease: false
+
+      - name: Upload Release Executable
+        id: upload-release-executable
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the Create Release step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+          asset_path: dist/word-2-pptx.exe
+          asset_name: word-2-pptx-Windows-amd64.exe
+          asset_content_type: application/zip
