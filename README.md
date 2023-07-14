@@ -1,4 +1,4 @@
-# PowerPoint Template v0.0.1
+# PowerPoint Template v0.0.2
 
 Easily place text to specified placeholders in powerpoint
 
