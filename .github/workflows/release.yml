@@ -8,14 +8,13 @@ on:
 
 jobs:
   build-windows:
-
     runs-on: windows-latest
 
     steps:
       - uses: actions/checkout@v3
 
       - name: Install Python
-      - uses: actions/setup-python@v4
+        uses: actions/setup-python@v4
         with:
           python-version: '3.9' 
       
