@@ -33,7 +33,7 @@ class MainWindow(Tk):
         self.btn_make_pptx.grid(row=5, column=0, padx=10, pady=10)
 
 
-        self.help_link = Label(text="Aide", font=('Helveticabold', 15), fg="blue", cursor="hand")
+        self.help_link = Label(text="Aide", font=('Helveticabold', 15), fg="blue")
         self.help_link.grid(row=6, column=0, padx=10, pady=10)
         self.help_link.bind("<Button-1>", lambda e: webbrowser.open_new_tab("https://github.com/Msa360/pptx_template_cin/blob/master/docs.md"))
 
