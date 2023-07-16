@@ -26,6 +26,8 @@ jobs:
       - name: Build with PyInstaller
         run: |
           python -m PyInstaller --name word-2-pptx --icon=assets/app-icon.ico --onefile --windowed main.py
+          Move-Item -Path ".\powerpoints\gabarit_v1.pptx" -Destination ".\dist"
+          python -m PyInstaller --name word-2-pptx --icon=assets/app-icon.ico --onefile --windowed main.py
 
       - uses: actions/upload-artifact@v3
         with:

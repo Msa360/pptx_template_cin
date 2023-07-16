@@ -1,7 +1,9 @@
-# Word 2 Powerpoint v0.0.4
+# Word 2 PDF
 
-Facilement convertir un fichier word en un fichier powerpoint formatté
+Facilement convertir un fichier word en un fichier pdf formatté
 
+refs:
+- https://alistapart.com/article/boom/
 
 Voir la [documentation](docs.md) pour l'utilisation
 
