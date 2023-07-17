@@ -1,10 +1,16 @@
 # Developer Documentation
-run `main.py` to start the complete app
+run `main.py` to start the app in dev mode
 
-## Building
-To build the app as an executable for production:
+## Building for production
+*replace --paths arg with your path to venv or remove this flag if not using a venv*
+
+macOS:
 ```shell
-pyinstaller --name word-2-pptx --icon=assets/app-icon.ico --onefile --windowed main.py
+pyinstaller --name word-2-pptx --icon=assets/app-icon.ico --add-data="powerpoints/gabarit_v1.pptx:powerpoints" --onefile --windowed --paths venv/lib/python3.9/site-packages main.py
+```
+windows:
+```shell
+python -m PyInstaller --name word-2-pptx --icon=assets/app-icon.ico --add-data="powerpoints\gabarit_v1.pptx;powerpoints" --onefile --windowed --paths path/to/venv/ main.py
 ```
 
 ## GitHub release
