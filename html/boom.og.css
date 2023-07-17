@@ -6,12 +6,10 @@
 html { 
   margin: 0;
   font: 10pt/1.26 "Gill Sans", sans-serif;
-  /* font: 10pt/1.26 "AppleGothic", "Gill Sans", sans-serif; */
- 
 }
 
 body { 
-  margin: 0 0 5% 5%;
+  margin: 0 0 0 28%;
 }
 
 h1, h2, h3, h4, h5, h6 { 
@@ -46,8 +44,8 @@ q::after {
   content: "\201D";
 }
 
-p { margin: 0; text-align: justify; text-justify: inter-word; }
-/* p + p { text-indent: 1.3em } */
+p { margin: 0 }
+p + p { text-indent: 1.3em }
 p.sidenote + p, p.caption, p.art { text-indent: 0 }
 
 p.author {
@@ -169,11 +167,10 @@ table.lined td, table.lined th {
     padding-bottom: 2em;
   }
 
-  @bottom-right {
+  @bottom-left {
     font: 11pt "Gill Sans", serif;
     content: counter(page);
     padding-top: 2em;
-    text-align: right;
     vertical-align: top;
   }
 }
