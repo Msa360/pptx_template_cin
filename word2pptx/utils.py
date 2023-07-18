@@ -110,7 +110,7 @@ def find_template_shape(slide, markup: str):
                 yield shape
                 used += 1
     if used == 0:
-        raise Exception("template shape wasn't found")
+        raise Exception(f"template shape wasn't found in {slide} with {markup}")
 
 def clean_up_shapes(presentation, markup: str):
     """deletes template shapes"""
