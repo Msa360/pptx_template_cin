@@ -22,13 +22,13 @@ superscript_dict = {
 }
 
 def walk_and_find(string: str, object: str):
-    """walks in a string until it finds the object in the string"""
+    """walks in a string until it finds the object in the string, then return start to end+1"""
     lenght = len(object)
     for i in range(len(string)-lenght+1):
-        if ''.join(string[i:i+lenght]) == object:
+        if string[i:i+lenght] == object:
             return i, i + lenght
         
-    raise Exception(f"{object} wasn't found in the string")
+    raise Exception(f"{object} wasn't found in the string {string}")
 
 def superscript_footnotes(text: str):
     """makes the footnotes appear as superscripts"""
@@ -89,6 +89,12 @@ def sources_correction(sources: list[str]):
     """
     if sources[0] == "":
         sources.pop(0)
+
+    for i in range(len(sources)):
+        if sources[i].startswith("<a href=\""):
+            index = walk_and_find(sources[i][9:], "\"")
+            sources[i] = sources[i][9:9+index[0]]
+
     return sources
 
 def word_tree(filepath: str):
