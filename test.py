@@ -9,7 +9,7 @@ from word2pptx import (
     word_tree
 )
 
-state_dict = word_tree('powerpoints/edge_computing.docx')
+state_dict = word_tree('powerpoints/veille_RPA.docx')
 
 
 prs = pptx.Presentation("powerpoints/gabarit_v1.pptx")
