@@ -5,8 +5,8 @@
 
 html { 
   margin: 0;
-  font: 10pt/1.26 "Gill Sans", sans-serif;
-  /* font: 10pt/1.26 "AppleGothic", "Gill Sans", sans-serif; */
+  /* font: 10pt/1.26 "Gill Sans", sans-serif; */
+  font: 10pt/1.26 "AppleGothic", "Gill Sans", sans-serif;
  
 }
 
@@ -24,13 +24,33 @@ h1 {
   padding: 2em 0 2em 0;
   margin: 0;
   font-size: 1.5em;
+}
+
+/* titre de l'aticle */
+h1.master-title {
+  font-weight: 200;
+  font-size: 25.5vw;
+}
+
+/* bannière des articles (souvent utilisés pour les pays) */
+h1.header {
   font-weight: 400;
+  
 }
 
 h2 { 
   font-size: 1.2em;
-  text-transform: uppercase;
+}
+
+/* sous-titre de l'article */
+h2.master-subtitle {
+  font-size: 25.5vw;
+}
+
+/* sous-titres des articles */
+h2.subtitle {
   font-weight: bold;
+
 }
 
 h3 { 
@@ -149,6 +169,21 @@ table.lined td, table.lined th {
   margin: 27mm 16mm 27mm 16mm;
   size: 7in 9.25in;
 
+  @bottom-right {
+    font: 10pt "Gill Sans", serif;
+    content: counter(page);
+    text-align: right;
+    vertical-align: top;
+    padding-top: 2em;
+  }
+
+  @bottom-left {
+    font: 10pt "Gill Sans", serif;
+    content: "Centre d'innovation numérique";
+    padding-top: 2em;
+    vertical-align: top;
+  }
+
   @footnotes {
     border-top: thin solid black;
     padding-top: 0.3em;
@@ -160,70 +195,7 @@ table.lined td, table.lined th {
 
 /* define default page and names pages: cover, blank, frontmatter */
 
-@page :left {
-  @bottom-right {
-    font: 11pt "Gill Sans", serif;
-    content: counter(page);
-    padding-top: 2em;
-    text-align: right;
-    vertical-align: top;
-  }
-}
-
-@page :right {
-  @bottom-right {
-    font: 11pt "Gill Sans", serif;
-    content: counter(page);
-    text-align: right;
-    vertical-align: top;
-    padding-top: 2em;
-  }
-}
-
-@page frontmatter :left {
-  @top-left {
-    font: 11pt "Gill Sans", serif;
-    content: string(title);
-    vertical-align: bottom;
-    padding-bottom: 2em;
-  }
-
-  @bottom-left {
-    font: 11pt "Gill Sans", serif;
-    content: counter(page, lower-roman);
-    padding-top: 2em;
-    vertical-align: top;
-  }
-}
-
 @page cover { margin: 0; }
-
-@page frontmatter :right {
-  @top-right {
-    font: 11pt "Gill Sans", serif;
-    content: string(header, first); 
-    vertical-align: bottom;
-    padding-bottom: 2em; 
-  }
-
-  @bottom-right {
-    font: 11pt "Gill Sans", serif;
-    content: counter(page, lower-roman);
-    text-align: right;
-    vertical-align: top;
-    padding-top: 2em;
-  }
-}
-
-@page blank :left {
-  @top-left { content: normal }
-  @bottom-left { content: normal }
-}
-
-@page blank :right {
-  @top-right { content: normal }
-  @bottom-right { content: normal }
-}
 
 /* footnotes */
 
