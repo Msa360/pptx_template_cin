@@ -79,7 +79,7 @@ class MainWindow(Tk):
             import word2pptx as wpx
 
             state_dict = wpx.word_tree(self.file_entry_text.get())
-            prs = pptx.Presentation(resource_path(os.path.join("powerpoints", "gabarit_v1.pptx")))
+            prs = pptx.Presentation(resource_path(os.path.join("powerpoints", "gabarit_v2.pptx")))
             top = 3_000_000 # decided arbitrarily
             wpx.add_title(prs.slides[0], state_dict["title"])
             wpx.add_subtitle(prs.slides[0], state_dict["subtitle"])
