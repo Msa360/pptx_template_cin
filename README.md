@@ -1,4 +1,4 @@
-# Word 2 Powerpoint v0.1.0
+# Word 2 Powerpoint v0.2.0
 
 Facilement convertir un fichier word en un fichier powerpoint formatté
 
