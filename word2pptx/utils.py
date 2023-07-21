@@ -5,13 +5,14 @@ from pptx.enum.text import PP_ALIGN
 from typing import List, Dict
 
 # GLOBAL VARS
-SLIDE_LAYOUT = 5 # style of slide
+SLIDE_LAYOUT = 4 # style of slide
 MAX_CHARS_PER_LINE = 97 # approximate, experimentally determined
 BANNER_HEIGHT = 400_000 # defined arbitrarily to ressemble canvas
 BANNER_MARKUP = "<banner>"
 SOURCE_BANNER_MARKUP = "<source_banner>"
 SOURCE_MARKUP = "<source>"
 SUBTITLE_LMARGIN = 138545
+AUTHOR_MARKUP = "<author>"
 
 
 
@@ -100,7 +101,13 @@ def move_slide(presentation, old_index, new_index):
     presentation.slides._sldIdLst.insert(new_index, slides[old_index])
 
 def find_template_shape(slide, markup: str):
-    """markup is the template placeholder, raise error in markup isn't found"""
+    """
+    markup is the template placeholder
+
+    raise error in markup isn't found
+
+    returns a generator of shapes object
+    """
     used = 0
     for shape in slide.shapes:
         if not shape.has_text_frame:
@@ -242,7 +249,7 @@ def add_countries(presentation, slide, countries: List[Dict], top: int):
     return bottom
 
 
-def add_sources(presentation, slide, sources: list, top: int):
+def add_sources(presentation, slide, sources: list):
     """add the sources and moves the slide to the end"""
     
     # add banner
@@ -250,7 +257,7 @@ def add_sources(presentation, slide, sources: list, top: int):
     # slide = presentation.slides.add_slide(slide_layout)
     banner_shape = list(find_template_shape(slide, SOURCE_BANNER_MARKUP))[0]
     banner = clone_shape(banner_shape, banner_shape.left, banner_shape.top, banner_shape.width, BANNER_HEIGHT)
-    banner.height = BANNER_HEIGHT
+    banner.height = int(BANNER_HEIGHT * 1.5)
     banner.text_frame.text = "Sources"
     banner.text_frame.paragraphs[0].font.color.theme_color = 14
     banner.text_frame.paragraphs[0].font.bold = True
@@ -263,5 +270,12 @@ def add_sources(presentation, slide, sources: list, top: int):
         template.text_frame.paragraphs[i].runs[0].hyperlink.address = sources[i]
         template.text_frame.paragraphs[i].font.size = pptx.util.Pt(8)
     
+    move_slide(presentation, presentation.slides.index(slide), len(list(presentation.slides)))
+
+def add_credits(presentation, slide, author=None):
+    """adds author name & moves the slide to the end"""
+    if isinstance(author, str):
+        for shape in find_template_shape(slide, AUTHOR_MARKUP):
+            shape.text_frame.text = author
     move_slide(presentation, presentation.slides.index(slide), len(list(presentation.slides)))
     

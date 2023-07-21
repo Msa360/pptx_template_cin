@@ -42,6 +42,9 @@ def superscript_footnotes(text: str):
 
 def parse(text: str) -> dict:
     state_dict = {
+        'author': None,
+        'title': '',
+        'subtitle': '',
         'intro': [],
         'countries': [],
         'sources': []
@@ -52,6 +55,11 @@ def parse(text: str) -> dict:
         line = line.lstrip()
         if line == '':
             continue
+        
+        elif line[:2] == '@ ':
+            # author
+            state_dict['author'] = line[2:].strip()
+
         elif line[:2] == '% ':
             # master title
             state_dict['title'] = line[2:].strip()
