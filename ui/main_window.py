@@ -85,11 +85,10 @@ class MainWindow(Tk):
             wpx.add_subtitle(prs.slides[0], state_dict["subtitle"])
             slide, bottom = wpx.add_intro(prs, prs.slides[0], state_dict["intro"], top)
             bottom = wpx.add_countries(prs, slide, state_dict["countries"], bottom)
-            wpx.add_sources(prs, prs.slides[1], state_dict["sources"], 0)
-            # deletes the template shapes
+            wpx.add_sources(prs, prs.slides[1], state_dict["sources"])
+            wpx.add_credits(prs, prs.slides[1], author=state_dict["author"])
             wpx.clean_up_shapes(prs, "<banner>") 
             wpx.clean_up_shapes(prs, "<source_banner>")
-            # clean_up_shapes(prs, "<source>") # issues with because it deletes the whole shape
             output_file = self.make_output_file()
             prs.save(output_file)
             # end call pptx creator
