@@ -4,6 +4,8 @@ from pptx.shapes.autoshape import Shape
 from pptx.enum.text import PP_ALIGN
 from typing import List, Dict
 
+from word2pptx.parser import word_tree
+
 # GLOBAL VARS
 SLIDE_LAYOUT = 4 # style of slide
 MAX_CHARS_PER_LINE = 97 # approximate, experimentally determined
@@ -278,4 +280,21 @@ def add_credits(presentation, slide, author=None):
         for shape in find_template_shape(slide, AUTHOR_MARKUP):
             shape.text_frame.text = author
     move_slide(presentation, presentation.slides.index(slide), len(list(presentation.slides)))
-    
+
+
+def make_presentation(input_file: str, output_file: str, gabarit_file: str):
+    state_dict = word_tree(input_file)
+    prs = pptx.Presentation(gabarit_file)
+    top = 3_000_000 # decided arbitrarily
+    add_title(prs.slides[0], state_dict["title"])
+    add_subtitle(prs.slides[0], state_dict["subtitle"])
+    slide, bottom = add_intro(prs, prs.slides[0], state_dict["intro"], top)
+    bottom = add_countries(prs, slide, state_dict["countries"], bottom)
+    add_sources(prs, prs.slides[1], state_dict["sources"])
+    add_credits(prs, prs.slides[1], author=state_dict["author"]) # slide number is 1 since sources will be appended
+    # deletes the template shapes
+    clean_up_shapes(prs, "<banner>") 
+    clean_up_shapes(prs, "<source_banner>")
+    # clean_up_shapes(prs, "<source>") # issues with because it deletes the whole shape
+
+    prs.save(output_file)

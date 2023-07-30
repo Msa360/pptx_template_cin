@@ -73,25 +73,9 @@ class MainWindow(Tk):
     def make_pptx(self):
         # create a loading window
         # loading_screen = LoadingScreen(self)
-        # call pptx creator todo: make this code better
         try:
-            import pptx
             import word2pptx as wpx
-
-            state_dict = wpx.word_tree(self.file_entry_text.get())
-            prs = pptx.Presentation(resource_path(os.path.join("powerpoints", "gabarit_v2.pptx")))
-            top = 3_000_000 # decided arbitrarily
-            wpx.add_title(prs.slides[0], state_dict["title"])
-            wpx.add_subtitle(prs.slides[0], state_dict["subtitle"])
-            slide, bottom = wpx.add_intro(prs, prs.slides[0], state_dict["intro"], top)
-            bottom = wpx.add_countries(prs, slide, state_dict["countries"], bottom)
-            wpx.add_sources(prs, prs.slides[1], state_dict["sources"])
-            wpx.add_credits(prs, prs.slides[1], author=state_dict["author"])
-            wpx.clean_up_shapes(prs, "<banner>") 
-            wpx.clean_up_shapes(prs, "<source_banner>")
-            output_file = self.make_output_file()
-            prs.save(output_file)
-            # end call pptx creator
+            wpx.make_presentation(self.file_entry_text.get(), self.make_output_file(), resource_path(os.path.join("powerpoints", "gabarit_v2.pptx")))
         except Exception as e:
             loading_screen = StatusScreen(self, str(e))
         else:
