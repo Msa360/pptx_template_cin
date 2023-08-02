@@ -13,7 +13,7 @@ from word2pptx import (
 state_dict = word_tree('powerpoints/veille_RPA.docx')
 
 
-prs = pptx.Presentation("powerpoints/gabarit_v2.pptx")
+prs = pptx.Presentation("powerpoints/gabarit_lts.pptx")
 top = 3_000_000 # decided arbitrarily
 add_title(prs.slides[0], state_dict["title"])
 add_subtitle(prs.slides[0], state_dict["subtitle"])

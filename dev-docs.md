@@ -6,11 +6,11 @@ run `main.py` to start the app in dev mode
 
 macOS:
 ```shell
-pyinstaller --name word-2-pptx --icon=assets/app-icon.ico --add-data="powerpoints/gabarit_v2.pptx:powerpoints" --onefile --windowed --paths venv/lib/python3.9/site-packages main.py
+pyinstaller --name word-2-pptx --icon=assets/app-icon.ico --add-data="powerpoints/gabarit_lts.pptx:powerpoints" --onefile --windowed --paths venv/lib/python3.9/site-packages main.py
 ```
 windows:
 ```shell
-python -m PyInstaller --name word-2-pptx --icon=assets/app-icon.ico --add-data="powerpoints\gabarit_v2.pptx;powerpoints" --onefile --windowed --paths path/to/venv/ main.py
+python -m PyInstaller --name word-2-pptx --icon=assets/app-icon.ico --add-data="powerpoints\gabarit_lts.pptx;powerpoints" --onefile --windowed --paths path/to/venv/ main.py
 ```
 
 ## GitHub release

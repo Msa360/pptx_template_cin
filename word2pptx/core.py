@@ -7,7 +7,7 @@ from typing import List, Dict
 from word2pptx.parser import word_tree
 
 # GLOBAL VARS
-SLIDE_LAYOUT = 4 # style of slide
+SLIDE_LAYOUT = 9 # style of slide
 MAX_CHARS_PER_LINE = 97 # approximate, experimentally determined
 BANNER_HEIGHT = 400_000 # defined arbitrarily to ressemble canvas
 BANNER_MARKUP = "<banner>"

@@ -75,7 +75,7 @@ class MainWindow(Tk):
         # loading_screen = LoadingScreen(self)
         try:
             import word2pptx as wpx
-            wpx.make_presentation(self.file_entry_text.get(), self.make_output_file(), resource_path(os.path.join("powerpoints", "gabarit_v2.pptx")))
+            wpx.make_presentation(self.file_entry_text.get(), self.make_output_file(), resource_path(os.path.join("powerpoints", "gabarit_lts.pptx")))
         except Exception as e:
             loading_screen = StatusScreen(self, str(e))
         else:
