@@ -54,5 +54,5 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the Create Release step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
           asset_path: dist/word-2-pptx.exe
-          asset_name: word-2-pptx-Windows-amd64.exe
+          asset_name: word2pptx-Windows64.exe
           asset_content_type: application/zip
