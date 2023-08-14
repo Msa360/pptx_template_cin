@@ -6,7 +6,7 @@
 html { 
   margin: 0;
   /* font: 10pt/1.26 "Gill Sans", sans-serif; */
-  font: 10pt/1.26 "AppleGothic", "Gill Sans", sans-serif;
+  font: 10pt/1.26 century-gothic, "Gill Sans", sans-serif;
  
 }
 
@@ -15,7 +15,7 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 { 
-  font-family: "Gill Sans", sans-serif;
+  font-family: century-gothic, "Gill Sans", sans-serif;
   margin: 2em 0 0.5em 0;
   page-break-after: avoid;
 } 
@@ -24,6 +24,12 @@ h1 {
   padding: 2em 0 2em 0;
   margin: 0;
   font-size: 1.5em;
+}
+
+/* date de rédaction de l'article */
+p.date {
+  string-set: date content();
+  display: none !important;
 }
 
 /* titre de l'aticle */
@@ -68,6 +74,12 @@ q::after {
 
 p { margin: 0; text-align: justify; text-justify: inter-word; }
 /* p + p { text-indent: 1.3em } */
+
+p + p::before {
+  content: "\a";
+  white-space: pre;
+}
+
 p.sidenote + p, p.caption, p.art { text-indent: 0 }
 
 p.author {
@@ -170,18 +182,29 @@ table.lined td, table.lined th {
   size: 7in 9.25in;
 
   @bottom-right {
-    font: 10pt "Gill Sans", serif;
+    font: 7pt century-gothic, sans-serif, "Gill Sans", serif;
     content: counter(page);
     text-align: right;
-    vertical-align: top;
     padding-top: 2em;
+    padding-bottom: 1em;
+    vertical-align: bottom;
+  }
+
+  @bottom {
+    font: 7pt century-gothic, sans-serif, "Gill Sans", serif;
+    content: "Centre d'innovation numérique";
+    padding-top: 2em;
+    padding-bottom: 1em;
+    vertical-align: bottom;
   }
 
   @bottom-left {
-    font: 10pt "Gill Sans", serif;
-    content: "Centre d'innovation numérique";
+    font: 7pt century-gothic, sans-serif, "Gill Sans", serif;
+    color: #2caa92;
+    content: string(date, first);
     padding-top: 2em;
-    vertical-align: top;
+    padding-bottom: 1em;
+    vertical-align: bottom;
   }
 
   @footnotes {
@@ -222,32 +245,6 @@ table.lined td, table.lined th {
   color: green;
   padding-right: 0.4em;
 }
-
-
-/*
-   A book consists of different types of sections. We propose to use
-   DIV elements with these class names:
-
-    frontcover
-    halftitlepage: contains the title of the book
-    titlepage: contains the title of the book, name of author(s) and publisher
-    imprint: left page with copyright, publisher, library printing information
-    dedication: right page with short dedication
-    foreword: written by someone other than the author(s)
-    toc: table of contents
-    preface: preface, including acknowledgements
-    chapter: each chapter is given its own DIV element
-    references: contains list of references
-    appendix: each appendix is given its own 
-    bibliography
-    glossary
-    index
-    colophon: describes how the book was produced
-    backcover
-
-   A book will use several of the types listed above, but few books
-   will use all of them.
-*/
 
 /* which section uses which named page */
 
@@ -345,7 +342,7 @@ code, span.css, span.value, span.declaration {
 
 
 @media screen, handheld {
-  html { margin: 1em; font: 14px "Gill Sans", sans-serif; }
+  html { margin: 1em; font: 14px century-gothic, "Gill Sans", sans-serif; }
   h1 { margin-bottom: 0.5em }
   div.frontcover, div.halftitlepage, div.titlepage, div.imprint, 
   div.dedication, div.foreword, div.toc, div.index { display: none }
