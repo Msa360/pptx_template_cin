@@ -6,7 +6,9 @@
 html { 
   margin: 0;
   /* font: 10pt/1.26 "Gill Sans", sans-serif; */
-  font: 10pt/1.26 century-gothic, "Gill Sans", sans-serif;
+  font-size: 10pt;
+  line-height: 1.26;
+  font-family: century-gothic, "Gill Sans", sans-serif;
  
 }
 
@@ -59,9 +61,10 @@ h2.subtitle {
 
 }
 
+/* texte souligné */
 span.highlight {
   font-weight: bold;
-  color: #2caa92;
+  /* color: #2caa92; */
 }
 
 h3 { 
@@ -85,12 +88,10 @@ p + p::before {
   white-space: pre;
 }
 
-p.sidenote + p, p.caption, p.art { text-indent: 0 }
+p.caption, p.art { text-indent: 0 }
 
-p.author {
-  margin-top: 2em;
-  text-indent: 0;
-  text-align: right;
+div.headcover {
+  color: rgb(255, 255, 255);
 }
 
 pre {  margin: 1em 1.3em; }
@@ -102,37 +103,6 @@ a { text-decoration: none; color: black }
 a.pageref::after { content: " on page " target-counter(attr(href), page); }
 a.figref { content: " Figure " target-counter(attr(href), figure); }
 a.tableref { content: " Table " target-counter(attr(href), figure); }
-
-/* sidenotes */
-
-.sidenote {
-  float: left;
-  clear: left;
-  margin: 0 0 1em -41%;
-  width: 37%;
-  font-size: 0.9em;
-  font-style: normal;
-  text-indent: 0;
-  text-align: right;
-  page-break-inside: avoid;
-}
-
-/* sidebars */
-
-div.sidebar {
-  float: top-next;
-  margin: 1.2em 0 1.2em 0;
-  border: thin solid;
-  background: #CCC;
-  padding: 0.5em 1em;
-  page-break-inside: avoid;
-  column-count: 2;
-  column-gap: 1.5em;
-}
-
-div.sidebar h2 {
-  margin-top: 0;
-}
 
 /* figures and tables*/
 
@@ -254,25 +224,8 @@ table.lined td, table.lined th {
 
 /* page breaks */
 
-div.frontcover { page-break-before: right }
-div.chapter, div.reference, 
-div.appendix, div.bibliography, div.glossary, div.index, div.colophon { 
-  page-break-before: always 
-}
+div.bibliography { page-break-before: always }
 div.backcover { page-break-before: always }
-
-
-/* index */
-
-ul.index { 
-  list-style-type: none;
-  margin: 0; padding: 0;
-  column-count: 2;
-  column-gap: 1em;
-}
-
-ul.index a::after { content: ", " target-counter(attr(href), page); }
-
 
 
 code, span.css, span.value, span.declaration {
@@ -283,5 +236,4 @@ code, span.css, span.value, span.declaration {
 @media screen, handheld {
   html { margin: 1em; font: 14px century-gothic, "Gill Sans", sans-serif; }
   h1 { margin-bottom: 0.5em }
-  div.frontcover, div.index { display: none }
 }
