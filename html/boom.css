@@ -13,7 +13,7 @@ html {
 }
 
 body { 
-  margin: 0 1% 0 1%;
+  /* margin: 0 1% 0 1%; */
 }
 
 h1, h2, h3, h4, h5, h6 { 
@@ -91,7 +91,14 @@ p + p::before {
 p.caption, p.art { text-indent: 0 }
 
 div.headcover {
-  color: rgb(255, 255, 255);
+  /* color: rgb(25, 255, 255); 2553 × 1103 */
+  width: 100vw;
+  height: 34.77vh;
+  background-image: url(headcover.png);
+  background-repeat: no-repeat;
+  /* background-size: 100% 100%; */
+  background-size: contain;
+
 }
 
 pre {  margin: 1em 1.3em; }
@@ -153,7 +160,7 @@ table.lined td, table.lined th {
 
 
 @page {
-  margin: 27mm 16mm 27mm 16mm;
+  margin: 3mm 3mm 10mm 3mm;
   size: 7in 9.25in;
 
   @bottom-right {
