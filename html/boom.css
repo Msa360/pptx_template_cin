@@ -22,11 +22,6 @@ h1, h2, h3, h4, h5, h6 {
   page-break-after: avoid;
 } 
 
-h1 { 
-  padding: 2em 0 2em 0;
-  margin: 0;
-  font-size: 1.5em;
-}
 
 /* date de rédaction de l'article */
 p.date {
@@ -36,8 +31,10 @@ p.date {
 
 /* titre de l'aticle */
 h1.master-title {
-  font-weight: 200;
-  font-size: 5.5vw;
+  font-weight: bold;
+  font-size: 24pt; /* todo: make this responsive */
+  color: white;
+  padding: 0.1em 0.3em;
 }
 
 /* bannière des articles (souvent utilisés pour les pays) */
@@ -101,6 +98,15 @@ div.headcover {
 
 }
 
+div.title-container {
+  position: relative;
+  top: 150px;
+  left: 10px;
+  height: 100px;
+  width: 50%;
+  background-color: #225277;
+}
+
 pre {  margin: 1em 1.3em; }
 
 a { text-decoration: none; color: black }
@@ -160,8 +166,8 @@ table.lined td, table.lined th {
 
 
 @page {
-  margin: 3mm 3mm 10mm 3mm;
-  size: 7in 9.25in;
+  margin: 4mm 4mm 10mm 4mm;
+  size: 8.5in 11in;
 
   @bottom-right {
     font: 7pt century-gothic, sans-serif, "Gill Sans", serif;
@@ -169,6 +175,7 @@ table.lined td, table.lined th {
     text-align: right;
     padding-top: 2em;
     padding-bottom: 1em;
+    padding-right: 40px;
     vertical-align: bottom;
   }
 
@@ -186,6 +193,7 @@ table.lined td, table.lined th {
     content: string(date, first);
     padding-top: 2em;
     padding-bottom: 1em;
+    padding-left: 40px;
     vertical-align: bottom;
   }
 
