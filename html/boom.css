@@ -37,19 +37,18 @@ h1.master-title {
   padding: 0.1em 0.3em;
 }
 
+/* sous-titre de l'article */
+h2.master-subtitle {
+  font-size: 10pt;
+  font-weight: 100;
+  color: white;
+  padding: 0.1em 0.3em;
+}
+
 /* bannière des articles (souvent utilisés pour les pays) */
 h1.header {
   font-weight: 400;
   
-}
-
-h2 { 
-  font-size: 1.2em;
-}
-
-/* sous-titre de l'article */
-h2.master-subtitle {
-  font-size: 25.5vw;
 }
 
 /* sous-titres des articles */
@@ -62,11 +61,6 @@ h2.subtitle {
 span.highlight {
   font-weight: bold;
   /* color: #2caa92; */
-}
-
-h3 { 
-  font-size: 1em;
-  font-weight: bold;
 }
 
 q::before {
@@ -89,6 +83,7 @@ p.caption, p.art { text-indent: 0 }
 
 div.headcover {
   /* color: rgb(25, 255, 255); 2553 × 1103 */
+  page-break-before: right;
   width: 100vw;
   height: 34.77vh;
   background-image: url(headcover.png);
@@ -98,13 +93,33 @@ div.headcover {
 
 }
 
+/* id de l'article */
+p.article-id {
+  color: #ffea00;
+  font-size: 10pt;
+  position: relative;
+  top: 135px;
+  left: 12px;
+}
+
 div.title-container {
   position: relative;
-  top: 150px;
+  top: 80px;
   left: 10px;
   height: 100px;
   width: 50%;
   background-color: #225277;
+}
+
+div.subtitle-container {
+  position: relative;
+  top: 60px;
+  left: 10px;
+  height: 45px;
+  width: 50%;
+  /* background: linear-gradient(to right, rgba(34, 82, 119, 1), rgba(34, 82, 119, 0)); */
+  background-color: rgba(34, 82, 119, 0.5)
+  
 }
 
 pre {  margin: 1em 1.3em; }
