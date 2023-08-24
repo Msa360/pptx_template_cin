@@ -1,6 +1,6 @@
-/* Inspired from https://alistapart.com/article/boom */
-/* Style sheet for displaying articles at Centre d'Innovation Numérique - SAAQ */
-/* You may reuse this style sheet for any purpose without any fees */
+/* Inspiré de https://alistapart.com/article/boom */
+/* Centre d'innovation numérique - SAAQ */
+/* Les couleurs utilisées sont disponibles dans le brandbook */
 
 
 html { 
@@ -47,15 +47,15 @@ h1.header {
   font-style: italic;
   color: white;
   font-weight: bold;
-  padding-left: 7px;
-  background-image: linear-gradient(to right, #66c6b4, #296288);      /* W3C */
+  padding-left: 8px;
+  background-image: linear-gradient(to right, #2caa92, #255b83);      /* W3C */
 }
 
 /* sous-titres des articles */
 h2.subtitle {
   font-weight: bold;
   color: #2caa92;
-  padding-left: 7px;
+  padding-left: 8px;
   font-size: 11pt;
 }
 
@@ -96,16 +96,17 @@ div.headcover {
   background-image: url(headcover.png);
   background-repeat: no-repeat;
   background-size: contain;
-
 }
 
 /* id de l'article */
 p.article-id {
-  color: #ffea00;
+  color: #f6d677;
   font-size: 10pt;
+  font-weight: bold;
   position: relative;
   top: 135px;
-  left: 12px;
+  left: 10px;
+  padding: 0;
 }
 
 div.title-container {
@@ -114,7 +115,7 @@ div.title-container {
   left: 10px;
   height: 100px;
   width: 437px;
-  background-color: #225277;
+  background-color: #255b83;
 }
 
 div.subtitle-container {
@@ -124,16 +125,27 @@ div.subtitle-container {
   height: 45px;
   width: 437px;
   /* background-image: linear-gradient(to right, rgba(34, 82, 119, 1), rgba(34, 82, 119, 0)); */
-  background-color: rgba(34, 82, 119, 0.4)
-  
+  background-color: rgba(37, 91, 131, 0.4)
+  /* background-color: #255b83; */
 }
 
+/* la dernière page avec les crédits */
 div.backcover {
   page: backcover;
   page-break-before: always;
+  text-align: center;
 }
 
-a { text-decoration: none; color: black }
+/* nom de l'auteur */
+div.author {
+  position: relative;
+  top: 527px;
+  font-size: 15pt;
+  font-weight: bold;
+  color: #f6d677;
+}
+
+a { text-decoration: none; color: black; }
 
 /* cross-references */
 
@@ -237,7 +249,6 @@ table.lined td, table.lined th {
   size: 8.5in 11in;
   background-image: url(backcover.png);
   background-repeat: no-repeat;
-  /* background-size: contain; */
   background-size: 8.5in 11in;
 
 
@@ -299,9 +310,12 @@ table.lined td, table.lined th {
 }
 
 
-/* page breaks */
+/* sources */
 
-div.bibliography { page-break-before: always }
+div.bibliography { 
+  page-break-before: always;
+  
+}
 
 
 code, span.css, span.value, span.declaration {
