@@ -1,24 +1,19 @@
-/* Inspired from https://alistapart.com/article/boom/ */
-/* Style sheet for displaying articles at Centre d'Innovation Numérique SAAQ */
+/* Inspired from https://alistapart.com/article/boom */
+/* Style sheet for displaying articles at Centre d'Innovation Numérique - SAAQ */
 /* You may reuse this style sheet for any purpose without any fees */
 
 
 html { 
   margin: 0;
-  /* font: 10pt/1.26 "Gill Sans", sans-serif; */
   font-size: 10pt;
   line-height: 1.26;
   font-family: century-gothic, "Gill Sans", sans-serif;
- 
 }
 
-body { 
-  /* margin: 0 1% 0 1%; */
-}
 
 h1, h2, h3, h4, h5, h6 { 
   font-family: century-gothic, "Gill Sans", sans-serif;
-  margin: 2em 0 0.5em 0;
+  margin: 0.5em 0 0.2em 0;
   page-break-after: avoid;
 } 
 
@@ -34,7 +29,8 @@ h1.master-title {
   font-weight: bold;
   font-size: 24pt; /* todo: make this responsive */
   color: white;
-  padding: 0.1em 0.3em;
+  padding: 2px 10px;
+  margin: 2em 0 0.5em 0;
 }
 
 /* sous-titre de l'article */
@@ -42,19 +38,25 @@ h2.master-subtitle {
   font-size: 10pt;
   font-weight: 100;
   color: white;
-  padding: 0.1em 0.3em;
+  padding: 2px 10px;
+  margin: 2em 0 0.5em 0;
 }
 
 /* bannière des articles (souvent utilisés pour les pays) */
 h1.header {
-  font-weight: 400;
-  
+  font-style: italic;
+  color: white;
+  font-weight: bold;
+  padding-left: 7px;
+  background-image: linear-gradient(to right, #66c6b4, #296288);      /* W3C */
 }
 
 /* sous-titres des articles */
 h2.subtitle {
   font-weight: bold;
-
+  color: #2caa92;
+  padding-left: 7px;
+  font-size: 11pt;
 }
 
 /* texte souligné */
@@ -71,7 +73,12 @@ q::after {
   content: "\201D";
 }
 
-p { margin: 0; text-align: justify; text-justify: inter-word; }
+p { 
+  margin: 0;
+  padding: 0 8px;
+  text-align: justify;
+  text-justify: inter-word;
+}
 /* p + p { text-indent: 1.3em } */
 
 p + p::before {
@@ -88,7 +95,6 @@ div.headcover {
   height: 34.77vh;
   background-image: url(headcover.png);
   background-repeat: no-repeat;
-  /* background-size: 100% 100%; */
   background-size: contain;
 
 }
@@ -107,7 +113,7 @@ div.title-container {
   top: 80px;
   left: 10px;
   height: 100px;
-  width: 50%;
+  width: 437px;
   background-color: #225277;
 }
 
@@ -116,13 +122,16 @@ div.subtitle-container {
   top: 60px;
   left: 10px;
   height: 45px;
-  width: 50%;
-  /* background: linear-gradient(to right, rgba(34, 82, 119, 1), rgba(34, 82, 119, 0)); */
-  background-color: rgba(34, 82, 119, 0.5)
+  width: 437px;
+  /* background-image: linear-gradient(to right, rgba(34, 82, 119, 1), rgba(34, 82, 119, 0)); */
+  background-color: rgba(34, 82, 119, 0.4)
   
 }
 
-pre {  margin: 1em 1.3em; }
+div.backcover {
+  page: backcover;
+  page-break-before: always;
+}
 
 a { text-decoration: none; color: black }
 
@@ -194,7 +203,7 @@ table.lined td, table.lined th {
     vertical-align: bottom;
   }
 
-  @bottom {
+  @bottom-center {
     font: 7pt century-gothic, sans-serif, "Gill Sans", serif;
     content: "Centre d'innovation numérique";
     padding-top: 2em;
@@ -223,7 +232,45 @@ table.lined td, table.lined th {
 
 /* define default page and names pages: cover, blank, frontmatter */
 
-@page cover { margin: 0; }
+@page backcover { 
+  margin: 0 0 10mm 0;
+  size: 8.5in 11in;
+  background-image: url(backcover.png);
+  background-repeat: no-repeat;
+  /* background-size: contain; */
+  background-size: 8.5in 11in;
+
+
+  @bottom-right {
+    font: 7pt century-gothic, sans-serif, "Gill Sans", serif;
+    color: #ffffff;
+    content: counter(page);
+    text-align: right;
+    padding-top: 2em;
+    padding-bottom: 1em;
+    padding-right: 40px;
+    vertical-align: bottom;
+  }
+
+  @bottom-center {
+    font: 7pt century-gothic, sans-serif, "Gill Sans", serif;
+    color: #ffffff;
+    content: "Centre d'innovation numérique";
+    padding-top: 2em;
+    padding-bottom: 1em;
+    vertical-align: bottom;
+  }
+
+  @bottom-left {
+    font: 7pt century-gothic, sans-serif, "Gill Sans", serif;
+    color: #ffffff;
+    content: string(date, first);
+    padding-top: 2em;
+    padding-bottom: 1em;
+    padding-left: 40px;
+    vertical-align: bottom;
+  }
+}
 
 /* footnotes */
 
@@ -255,7 +302,6 @@ table.lined td, table.lined th {
 /* page breaks */
 
 div.bibliography { page-break-before: always }
-div.backcover { page-break-before: always }
 
 
 code, span.css, span.value, span.declaration {
