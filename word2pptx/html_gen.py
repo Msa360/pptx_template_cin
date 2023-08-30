@@ -56,8 +56,9 @@ def add_paragraphe(soup: BeautifulSoup, text: str):
 def make_bibliography(soup: BeautifulSoup):
     return soup
 
-def make_html_doc(soup: BeautifulSoup, tree: dict):
+def make_html_doc(tree: dict):
     """makes full html file from parsed word document tree"""
+    soup = BeautifulSoup(HTML, 'html.parser')
     soup = make_head(soup, tree['author'], tree['title'], tree['subtitle'], '2023', '#00-87')
     for part in tree['body']:
         if part['type'] == 'title':
@@ -66,16 +67,16 @@ def make_html_doc(soup: BeautifulSoup, tree: dict):
             soup = add_subtitle(soup, part['content'])
         elif part['type'] == 'text':
             soup = add_paragraphe(soup, part['content'])
-    return soup
+    return soup.prettify()
 
 if __name__ == "__main__":
-    soup = BeautifulSoup(HTML, 'html.parser')
+    # soup = BeautifulSoup(HTML, 'html.parser')
     # soup = make_head(soup, 'PH Hugo', 'Les red grooms', '2023', '#00-87-12')
     # soup = make_headcover(soup, "L'intelligence artificiel", "La matière grise")
     # soup = add_banner(soup, "L'Amérique")
     # soup = add_subtitle(soup, "Le web 3.0")
     # soup = add_paragraphe(soup, 'The Web is a vast collection of documents on the <dfn id="dfn-internet">Internet</dfn> th')
-    soup = make_html_doc(soup, {
+    html_code = make_html_doc({
         "author": "Philippe Gueu",
         "title": "article title here",
         "subtitle": "article subtitle here",
@@ -90,4 +91,4 @@ if __name__ == "__main__":
             "www.example2.com"
         ]
     })
-    print(soup.prettify())
+    print(html_code)

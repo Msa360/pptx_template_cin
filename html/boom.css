@@ -310,12 +310,25 @@ table.lined td, table.lined th {
 }
 
 
-/* sources */
+/* bibliography */
 
 div.bibliography { 
   page-break-before: always;
-  
 }
+div.bibliography > ol {
+  columns: 2;
+  column-gap: 25px;
+  position: relative;
+  left: -20px;
+}
+div.bibliography a {
+  color: #2caa92;
+  text-decoration: underline;
+}
+div.bibliography li::marker {
+  color: #f6d677;
+}
+
 
 
 code, span.css, span.value, span.declaration {

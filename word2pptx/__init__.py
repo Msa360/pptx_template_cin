@@ -1,5 +1,5 @@
 """
-Library for transforming Word document (.docx) into PDF
+Library for transforming a Word document (.docx) into PDF
 """
 
 from word2pptx.html_gen import *

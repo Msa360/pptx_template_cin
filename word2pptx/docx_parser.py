@@ -8,7 +8,7 @@ import json
 
 
 
-superscript_dict = {
+SUPERSCRIPTS = {
     "0": "\u2070",
     "1": "\u00B9",
     "2": "\u00B2",
@@ -34,10 +34,10 @@ def superscript_footnotes(text: str):
     """makes the footnotes appear as superscripts"""
     pattern = r"----footnote([0-9]{1,3})----"
     if re.search(r"----footnote1----", text): # this is because of the bug when the footnote1 is skipped
-        return re.sub(pattern, lambda m: "".join(superscript_dict[char] for char in m.group(1)), text)
+        return re.sub(pattern, lambda m: "".join(SUPERSCRIPTS[char] for char in m.group(1)), text)
     else:
         # substract 1 to all footnotes since footnote1 was skipped else it would start at 2
-        return re.sub(pattern, lambda m: "".join(superscript_dict[char] for char in str(int(m.group(1)) - 1)), text)
+        return re.sub(pattern, lambda m: "".join(SUPERSCRIPTS[char] for char in str(int(m.group(1)) - 1)), text)
 
 
 def parse(text: str) -> dict:
@@ -114,6 +114,6 @@ def word_tree(filepath: str):
     return state_dict
 
 if __name__ == "__main__":
-    state_dict = word_tree('powerpoints/veille_RPA.docx')
+    state_dict = word_tree('tests/RPA.docx')
     with open("temp_tree.json", 'w') as f:
         json.dump(state_dict, f, indent=2)

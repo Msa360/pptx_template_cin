@@ -20,4 +20,4 @@ Pushing a tag to master with the form 'vX.X.X' will trigger a release action, if
 ## Architecture
 **ui** contains all stuff about the graphical user interface with tkinter.
 
-**word2pptx** contains all stuff about handling the parsing of the word file, to making the powerpoint file. To build the powerpoint, it uses the library [python-pptx](https://github.com/scanny/python-pptx) with the import name `pptx`.
+**word2pptx** contains all stuff about handling the parsing of the word file, to making the PDF file. To build the PDF, it uses the program [Prince](https://www.princexml.com), that converts html to PDF, so html code is first generated and passed to Prince to make a PDF file.

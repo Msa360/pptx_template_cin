@@ -1,2 +1,4 @@
 beautifulsoup4==4.12.2
+docx2python==2.7.3
+lxml==4.9.3
 soupsieve==2.4.1
