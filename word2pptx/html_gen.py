@@ -26,34 +26,68 @@ HTML = """<?xml version="1.0" encoding="iso-8859-1"?>
 </div>
 </body>"""
 
-def head_tags(author: str, title: str, date: str, id: str):
-    soup = BeautifulSoup(HTML, 'html.parser')
+def make_head(soup: BeautifulSoup, author: str, title: str, subtitle: str, date: str, id: str):
     soup.find('meta', {'name': 'author'})['content'] = author
     soup.find('title').append(title)
     soup.find('p', class_="date").append(date)
     soup.find('p', class_="article-id").append(id)
-
+    soup.find('h1', class_="master-title").append(title)
+    soup.find('h2', class_="master-subtitle").append(subtitle)
     return soup
 
-def make_headcover(title: str, subtitle: str):
-    pass
+def add_banner(soup: BeautifulSoup, text: str):
+    tag = soup.new_tag('h1', attrs={'class': 'header'})
+    tag.append(text)
+    soup.find('body').append(tag)
+    return soup
 
-def add_banner(text: str):
-    pass
+def add_subtitle(soup: BeautifulSoup, text: str):
+    tag = soup.new_tag('h2', attrs={'class': 'subtitle'})
+    tag.append(text)
+    soup.find('body').append(tag)
+    return soup
 
-def add_subtitle(text: str):
-    pass
+def add_paragraphe(soup: BeautifulSoup, text: str):
+    tag = soup.new_tag('p')
+    tag.append(text)
+    soup.find('body').append(tag)
+    return soup
 
-def add_paragraphe(text: str):
-    pass
+def make_bibliography(soup: BeautifulSoup):
+    return soup
 
-def make_bibliography():
-    pass
-
-def make_html_doc(tree: dict):
+def make_html_doc(soup: BeautifulSoup, tree: dict):
     """makes full html file from parsed word document tree"""
-    pass
+    soup = make_head(soup, tree['author'], tree['title'], tree['subtitle'], '2023', '#00-87')
+    for part in tree['body']:
+        if part['type'] == 'title':
+            soup = add_banner(soup, part['content'])
+        elif part['type'] == 'subtitle':
+            soup = add_subtitle(soup, part['content'])
+        elif part['type'] == 'text':
+            soup = add_paragraphe(soup, part['content'])
+    return soup
 
 if __name__ == "__main__":
-    soup = head_tags('PH Hugo', 'Les red grooms', '2023', '#00-87-12')
+    soup = BeautifulSoup(HTML, 'html.parser')
+    # soup = make_head(soup, 'PH Hugo', 'Les red grooms', '2023', '#00-87-12')
+    # soup = make_headcover(soup, "L'intelligence artificiel", "La matière grise")
+    # soup = add_banner(soup, "L'Amérique")
+    # soup = add_subtitle(soup, "Le web 3.0")
+    # soup = add_paragraphe(soup, 'The Web is a vast collection of documents on the <dfn id="dfn-internet">Internet</dfn> th')
+    soup = make_html_doc(soup, {
+        "author": "Philippe Gueu",
+        "title": "article title here",
+        "subtitle": "article subtitle here",
+        "body": [
+            {"type": "title", "content": "France"},
+            {"type": "subtitle", "content": "subtitle here"},
+            {"type": "title", "content": "France"},
+            {"type": "text", "content": "L'Amérique est là."}
+        ],
+        "sources": [
+            "www.example.com",
+            "www.example2.com"
+        ]
+    })
     print(soup.prettify())
