@@ -312,9 +312,10 @@ table.lined td, table.lined th {
 
 /* bibliography */
 
-div.bibliography { 
-  page-break-before: always;
-}
+div.bibliography { page-break-before: always; }
+
+div.bibliography li { page-break-inside: avoid; }
+
 div.bibliography > ol {
   columns: 2;
   column-gap: 25px;
