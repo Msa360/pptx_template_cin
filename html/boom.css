@@ -1,7 +1,31 @@
 /* Inspiré de https://alistapart.com/article/boom */
 /* Centre d'innovation numérique - SAAQ */
-/* Les couleurs utilisées sont disponibles dans le brandbook */
+/* Les couleurs utilisées sont disponibles dans le brandbook du CIN */
 
+@font-face {
+  font-family: century-gothic;
+  src: url("./fonts/GOTHIC.TTF");
+  font-weight: normal;
+}
+@font-face {
+  font-family: century-gothic;
+  src: url("./fonts/GOTHICB.TTF");
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: century-gothic;
+  src: url("./fonts/GOTHICBI.TTF");
+  font-weight: bold;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: century-gothic;
+  src: url("./fonts/GOTHICI.TTF");
+  font-weight: normal;
+  font-style: italic;
+}
 
 html { 
   margin: 0;
