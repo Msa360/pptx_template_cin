@@ -26,9 +26,9 @@ def walk_and_find(string: str, object: str):
     lenght = len(object)
     for i in range(len(string)-lenght+1):
         if string[i:i+lenght] == object:
-            return i, i + lenght
+            return i
         
-    raise Exception(f"{object} wasn't found in the string {string}")
+    return -1
 
 def superscript_footnotes(text: str):
     """makes the footnotes appear as superscripts"""
@@ -96,9 +96,10 @@ def sources_correction(sources: list[str]):
         sources.pop(0)
 
     for i in range(len(sources)):
-        if sources[i].startswith("<a href=\""):
-            index = walk_and_find(sources[i][9:], "\"")
-            sources[i] = sources[i][9:9+index[0]]
+        n = walk_and_find(sources[i], '<a href="')
+        if n >= 0:
+            index = walk_and_find(sources[i][n+9:], "\"")
+            sources[i] = sources[i][n+9:n+9+index]
 
     return sources
 
