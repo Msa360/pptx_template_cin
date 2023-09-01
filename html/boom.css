@@ -314,7 +314,7 @@ table.lined td, table.lined th {
 
 div.bibliography { page-break-before: always; }
 
-div.bibliography li { page-break-inside: avoid; }
+div.bibliography li { page-break-inside: avoid; overflow-wrap: break-word;}
 
 div.bibliography > ol {
   columns: 2;

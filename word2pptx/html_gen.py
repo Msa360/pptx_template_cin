@@ -1,4 +1,4 @@
-"""Generating the html"""
+"""Generating the html code"""
 from bs4 import BeautifulSoup
 # soup = BeautifulSoup(html_doc, 'html.parser')
 
@@ -9,7 +9,6 @@ HTML = """<?xml version="1.0" encoding="iso-8859-1"?>
   <title></title>
   <meta name="author" content=""/>
   <meta name="subject" content="Article de veille"/>
-  <link rel="stylesheet" type="text/css" href="boom.css"/>
   <link rel="stylesheet" href="https://use.typekit.net/oov2wcw.css"/>
 </head>
 <body>
@@ -53,7 +52,18 @@ def add_paragraphe(soup: BeautifulSoup, text: str):
     soup.find('body').append(tag)
     return soup
 
-def make_bibliography(soup: BeautifulSoup):
+def make_bibliography(soup: BeautifulSoup, sources: list):
+    bib = BeautifulSoup("""<div class="bibliography"><h1 class="header">Sources</h1><ol></ol></div>""", 'html.parser')
+    ol = bib.find('ol')
+    for source in sources:
+        tag = bib.new_tag('li')
+        tag.append(source)
+        ol.append(tag)
+    soup.find('body').append(bib)
+    return soup
+
+def make_backcover(soup: BeautifulSoup, author: str):
+    soup.find('body').append(BeautifulSoup(f"""<div class="backcover"><div class="author">{author}</div></div>""", 'html.parser'))
     return soup
 
 def make_html_doc(tree: dict):
@@ -67,6 +77,8 @@ def make_html_doc(tree: dict):
             soup = add_subtitle(soup, part['content'])
         elif part['type'] == 'text':
             soup = add_paragraphe(soup, part['content'])
+    soup = make_bibliography(soup, tree['sources'])
+    soup = make_backcover(soup, tree['author'])
     return soup.prettify()
 
 if __name__ == "__main__":
