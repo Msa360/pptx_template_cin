@@ -5,7 +5,6 @@
 @font-face {
   font-family: century-gothic;
   src: url("./fonts/GOTHIC.TTF");
-  font-weight: normal;
 }
 @font-face {
   font-family: century-gothic;
@@ -23,7 +22,6 @@
 @font-face {
   font-family: century-gothic;
   src: url("./fonts/GOTHICI.TTF");
-  font-weight: normal;
   font-style: italic;
 }
 
@@ -51,19 +49,19 @@ p.date {
 /* titre de l'aticle */
 h1.master-title {
   font-weight: bold;
-  font-size: 24pt; /* todo: make this responsive */
+  font-size: 24pt;
   color: white;
   padding: 2px 10px;
-  margin: 2em 0 0.5em 0;
+  margin: 0;
 }
 
 /* sous-titre de l'article */
 h2.master-subtitle {
   font-size: 10pt;
-  font-weight: 100;
+  font-weight: normal;
   color: white;
-  padding: 2px 10px;
-  margin: 2em 0 0.5em 0;
+  padding: 3px 10px;
+  margin: 0;
 }
 
 /* bannière des articles (souvent utilisés pour les pays) */
@@ -127,15 +125,15 @@ p.article-id {
   color: #f6d677;
   font-size: 10pt;
   font-weight: bold;
-  position: relative;
+  position: absolute;
   top: 135px;
   left: 10px;
   padding: 0;
 }
 
 div.title-container {
-  position: relative;
-  top: 80px;
+  position: absolute;
+  top: 160px;
   left: 10px;
   height: 100px;
   width: 437px;
@@ -143,14 +141,13 @@ div.title-container {
 }
 
 div.subtitle-container {
-  position: relative;
-  top: 60px;
+  position: absolute;
+  top: 270px;
   left: 10px;
   height: 45px;
   width: 437px;
   /* background-image: linear-gradient(to right, rgba(34, 82, 119, 1), rgba(34, 82, 119, 0)); */
-  background-color: rgba(37, 91, 131, 0.4)
-  /* background-color: #255b83; */
+  background-color: rgba(37, 91, 131, 0.4); /* background-color: #255b83; */
 }
 
 /* la dernière page avec les crédits */
