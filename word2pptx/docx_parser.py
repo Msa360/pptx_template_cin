@@ -42,6 +42,7 @@ def superscript_footnotes(text: str):
 
 def parse(text: str) -> dict:
     state_dict = {
+        'id': '',
         'author': '',
         'title': '',
         'subtitle': '',
@@ -54,6 +55,10 @@ def parse(text: str) -> dict:
         if line == '':
             continue
         
+        elif line[:3] == 'id:':
+            # id
+            state_dict['id'] = line[3:].strip()
+
         elif line[:2] == '@ ':
             # author
             state_dict['author'] = line[2:].strip()

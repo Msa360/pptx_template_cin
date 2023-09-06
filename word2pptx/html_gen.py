@@ -69,7 +69,7 @@ def make_backcover(soup: BeautifulSoup, author: str):
 def make_html_doc(tree: dict):
     """makes full html file from parsed word document tree"""
     soup = BeautifulSoup(HTML, 'html.parser')
-    soup = make_head(soup, tree['author'], tree['title'], tree['subtitle'], '2023', '#00-87')
+    soup = make_head(soup, tree['author'], tree['title'], tree['subtitle'], '2023', tree['id'])
     for part in tree['body']:
         if part['type'] == 'title':
             soup = add_banner(soup, part['content'])
