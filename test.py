@@ -1,33 +1,36 @@
-import subprocess, sys
-import word2pptx as wpx
+import os
+import subprocess, sys, tempfile
+from word2pptx import transform
+
+transform("tests/ludification.docx", "tests/lud.pdf", 35, 11)
 
 
-html = wpx.make_html_doc(wpx.word_tree("tests/RPA.docx"))
-with open("tests/temp.html", "w") as f:
-    print(html, file=f)
+# html = wpx.make_html_doc(wpx.word_tree("tests/RPA.docx"))
+# html_file = tempfile.NamedTemporaryFile(mode='w', delete=False)
+# html_file.write(html)
+# html_file.close()
 
+# title_css = "h1.master-title {font-size: %dpt;}\nh2.master-subtitle {font-size: %dpt;}" % (19.5, 15)
+# css_file = tempfile.NamedTemporaryFile(mode='w', delete=False)
+# css_file.write(title_css)
+# css_file.close()
 
-title_css = """
-h1.master-title { font-size: %dpt; }
-h2.master-subtitle { font-size: %dpt; }
-""" % (18.5, 15)
-with open("tests/temp.css", "w") as f:
-    print(title_css, file=f)
+# if sys.platform == 'win32':
+#     Prince = r"C:\Program Files (x86)\Prince\engine\bin\prince.exe"
+# else:
+#     Prince = "prince"
 
-if sys.platform == 'win32':
-    # windows call to prince:
-    subprocess.run([r"C:\Program Files (x86)\Prince\engine\bin\prince.exe", "-s", "html/boom.css", "-s", "tests/temp.css", "tests/temp.html", "-o", "tests/test.pdf"])
-else:
-    # unix call to prince:
-    subprocess.run(["prince", "-s", "html/boom.css", "-s", "tests/temp.css", "tests/temp.html", "-o", "tests/test.pdf"])
+# subprocess.run([Prince, "-s", "html/boom.css", "-s", css_file.name, html_file.name, "-o", "tests/test.pdf"])    
+# os.remove(html_file.name)
+# os.remove(css_file.name)
 
-from pypdf import PdfWriter, PdfReader
-infile = PdfReader('tests/test.pdf', 'rb')
-output = PdfWriter()
+# from pypdf import PdfWriter, PdfReader
+# infile = PdfReader('tests/test.pdf', 'rb')
+# output = PdfWriter()
 
-for i in range(2, len(infile.pages)):
-    p = infile.pages[i]
-    output.add_page(p)
+# for i in range(2, len(infile.pages)):
+#     p = infile.pages[i]
+#     output.add_page(p)
 
-with open('tests/test.pdf', 'wb') as f:
-    output.write(f)
+# with open('tests/test.pdf', 'wb') as f:
+#     output.write(f)
