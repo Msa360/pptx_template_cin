@@ -7,7 +7,7 @@ from word2pptx.docx_parser import *
 
 
 
-def transform(input: str, ouput: str, title_size: float, subtitle_size: float):
+def transform(input: str, ouput: str, date: str, title_size: float = 24, subtitle_size: float = 10):
     """
     ### The primary function
     
@@ -18,7 +18,7 @@ def transform(input: str, ouput: str, title_size: float, subtitle_size: float):
 
     import subprocess, sys, tempfile, os
 
-    html = make_html_doc(word_tree(input))
+    html = make_html_doc(word_tree(input), date)
     html_file = tempfile.NamedTemporaryFile(mode='w', delete=False)
     html_file.write(html)
     html_file.close()

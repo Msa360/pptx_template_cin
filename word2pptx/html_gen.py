@@ -66,10 +66,10 @@ def make_backcover(soup: BeautifulSoup, author: str):
     soup.find('body').append(BeautifulSoup(f"""<div class="backcover"><div class="author">{author}</div></div>""", 'html.parser'))
     return soup
 
-def make_html_doc(tree: dict):
+def make_html_doc(tree: dict, date: str):
     """makes full html file from parsed word document tree"""
     soup = BeautifulSoup(HTML, 'html.parser')
-    soup = make_head(soup, tree['author'], tree['title'], tree['subtitle'], '2023', tree['id'])
+    soup = make_head(soup, tree['author'], tree['title'], tree['subtitle'], date, tree['id'])
     for part in tree['body']:
         if part['type'] == 'title':
             soup = add_banner(soup, part['content'])
