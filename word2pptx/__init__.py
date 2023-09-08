@@ -4,8 +4,33 @@ Library for transforming a Word document (.docx) into PDF
 
 from word2pptx.html_gen import *
 from word2pptx.docx_parser import *
+import os, sys, subprocess
+
+__all__ = ["transform"]
+
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
 
 
+def check_prince():
+    """checks if Prince is installed"""
+    if sys.platform == 'win32':
+        Prince = r"C:\Program Files (x86)\Prince\engine\bin\prince.exe"
+    else:
+        Prince = "prince"
+
+    try:
+        subprocess.run([Prince, "--version"], stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
+    except:
+        raise Exception("You need to install Prince software") 
+    
 
 def transform(input: str, ouput: str, date: str, title_size: float = 24, subtitle_size: float = 10):
     """
@@ -15,8 +40,9 @@ def transform(input: str, ouput: str, date: str, title_size: float = 24, subtitl
 
     output is the PDF
     """
+    check_prince() # checks if prince is installed
 
-    import subprocess, sys, tempfile, os
+    import tempfile
 
     html = make_html_doc(word_tree(input), date)
     html_file = tempfile.NamedTemporaryFile(mode='w', delete=False)
@@ -33,7 +59,7 @@ def transform(input: str, ouput: str, date: str, title_size: float = 24, subtitl
     else:
         Prince = "prince"
 
-    subprocess.run([Prince, "-s", "html/boom.css", "-s", css_file.name, html_file.name, "-o", ouput])    
+    subprocess.run([Prince, "-s", resource_path(os.path.join("html","boom.css")), "-s", css_file.name, html_file.name, "-o", ouput])    
     os.remove(html_file.name)
     os.remove(css_file.name)
 
