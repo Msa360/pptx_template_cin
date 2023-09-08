@@ -1,6 +1,5 @@
 """Generating the html code"""
 from bs4 import BeautifulSoup
-# soup = BeautifulSoup(html_doc, 'html.parser')
 
 HTML = """<?xml version="1.0" encoding="iso-8859-1"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
@@ -9,7 +8,6 @@ HTML = """<?xml version="1.0" encoding="iso-8859-1"?>
   <title></title>
   <meta name="author" content=""/>
   <meta name="subject" content="Article de veille"/>
-  <link rel="stylesheet" href="https://use.typekit.net/oov2wcw.css"/>
 </head>
 <body>
 <p class="date"></p>
@@ -63,7 +61,18 @@ def make_bibliography(soup: BeautifulSoup, sources: list):
     return soup
 
 def make_backcover(soup: BeautifulSoup, author: str):
-    soup.find('body').append(BeautifulSoup(f"""<div class="backcover"><div class="author">{author}</div></div>""", 'html.parser'))
+    backcover = f"""
+    <div class="backcover">
+    <div class="author">{author}</div>
+    <div class="contact">
+      Pour nous contacter:<br>
+      <a href="mailto:centre.innovation.numerique@saaq.gouv.qc.ca" style="color: #f6d677;">
+        centre.innovation.numerique@saaq.gouv.qc.ca
+      </a>
+    </div>
+    </div>
+    """
+    soup.find('body').append(BeautifulSoup(backcover, 'html.parser'))
     return soup
 
 def make_html_doc(tree: dict, date: str):

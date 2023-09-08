@@ -32,6 +32,7 @@ html {
   font-family: century-gothic, "Gill Sans", sans-serif;
 }
 
+a { text-decoration: none; color: black; }
 
 h1, h2, h3, h4, h5, h6 { 
   font-family: century-gothic, "Gill Sans", sans-serif;
@@ -70,7 +71,7 @@ h1.header {
   color: white;
   font-weight: bold;
   padding-left: 8px;
-  background-image: linear-gradient(to right, #2caa92, #255b83);      /* W3C */
+  background-image: linear-gradient(to right, #2caa92, #255b83);      /* W3C standard */
 }
 
 /* sous-titres des articles */
@@ -166,7 +167,12 @@ div.author {
   color: #f6d677;
 }
 
-a { text-decoration: none; color: black; }
+div.contact {
+  position: relative;
+  top: 927px;
+  color: white;
+}
+
 
 /* cross-references */
 
@@ -352,10 +358,6 @@ div.bibliography li::marker {
 }
 
 
-
-code, span.css, span.value, span.declaration {
-  font: 90% "Lucida Console", "Lucida Sans Typewriter", monospace;
-}
 
 
 @media screen, handheld {
