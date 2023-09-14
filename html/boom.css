@@ -184,19 +184,24 @@ a.figref { content: " Figure " target-counter(attr(href), figure); }
 
 div.figure {
   float: right;
-  /* margin: 0em 0 1em 0; */
+  margin: 0 0 3px 2px;
   counter-increment: figure;
   width: 30%;
   break-inside: avoid;
 }
-
-div.figure .caption {
-  /* float: ; */
-  /* clear: left; */
-  width: 37%;
+div.figure .source-img {
   text-align: right;
   font-size: 0.9em;
-  margin: 0 0 1.2em 0;
+}
+
+div.figure .source-img::before {
+  content: "Source ";
+  font-weight: bold;
+}
+
+div.figure .caption {
+  text-align: center;
+  font-size: 0.9em;
 }
 
 div.figure .caption::before {
