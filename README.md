@@ -2,6 +2,8 @@
 
 Facilement convertir un fichier word en un fichier pdf formatté
 
+durée de rendement: < 1s
+
 refs:
 - https://alistapart.com/article/boom/
 

@@ -32,12 +32,13 @@ html {
   font-family: century-gothic, "Gill Sans", sans-serif;
 }
 
-a { text-decoration: none; color: black; }
+a { text-decoration: none; color: inherit; font-family: inherit; }
 
 h1, h2, h3, h4, h5, h6 { 
   font-family: century-gothic, "Gill Sans", sans-serif;
   margin: 0.5em 0 0.2em 0;
   page-break-after: avoid;
+  clear: both;
 } 
 
 
@@ -109,7 +110,6 @@ p + p::before {
   white-space: pre;
 }
 
-p.caption, p.art { text-indent: 0 }
 
 div.headcover {
   /* color: rgb(25, 255, 255); 2553 × 1103 */
@@ -178,22 +178,25 @@ div.contact {
 
 a.pageref::after { content: " on page " target-counter(attr(href), page); }
 a.figref { content: " Figure " target-counter(attr(href), figure); }
-a.tableref { content: " Table " target-counter(attr(href), figure); }
 
-/* figures and tables*/
+/* figures */
+
 
 div.figure {
-  margin: 1em 0;
+  float: right;
+  /* margin: 0em 0 1em 0; */
   counter-increment: figure;
+  width: 30%;
+  break-inside: avoid;
 }
 
-div.figure .caption, div.table .caption {
-  float: left;
-  clear: left;
+div.figure .caption {
+  /* float: ; */
+  /* clear: left; */
   width: 37%;
   text-align: right;
   font-size: 0.9em;
-  margin: 0 0 1.2em -40%;
+  margin: 0 0 1.2em 0;
 }
 
 div.figure .caption::before {
@@ -201,31 +204,6 @@ div.figure .caption::before {
   font-weight: bold;
 }
 
-div.table .caption::before {
-  content: "Table " counter(table) ": ";
-  font-weight: bold;
-}
-
-div.table {
-  margin: 1em 0;
-  counter-increment: table;
-}
-
-div.table th {
-  text-align: left;
-}
-
-table th, table td {
-  text-align: left;
-  padding-right: 1em;
-}
-
-table.lined td, table.lined th {
-  border-top: none;
-  border-bottom: thin dotted;
-  padding-top: 0.2em;
-  padding-bottom: 0.2em;
-}
 
 
 @page {

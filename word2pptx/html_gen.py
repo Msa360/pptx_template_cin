@@ -91,25 +91,7 @@ def make_html_doc(tree: dict, date: str):
     return soup.prettify()
 
 if __name__ == "__main__":
-    # soup = BeautifulSoup(HTML, 'html.parser')
-    # soup = make_head(soup, 'PH Hugo', 'Les red grooms', '2023', '#00-87-12')
-    # soup = make_headcover(soup, "L'intelligence artificiel", "La matière grise")
-    # soup = add_banner(soup, "L'Amérique")
-    # soup = add_subtitle(soup, "Le web 3.0")
-    # soup = add_paragraphe(soup, 'The Web is a vast collection of documents on the <dfn id="dfn-internet">Internet</dfn> th')
-    html_code = make_html_doc({
-        "author": "Philippe Gueu",
-        "title": "article title here",
-        "subtitle": "article subtitle here",
-        "body": [
-            {"type": "title", "content": "France"},
-            {"type": "subtitle", "content": "subtitle here"},
-            {"type": "title", "content": "France"},
-            {"type": "text", "content": "L'Amérique est là."}
-        ],
-        "sources": [
-            "www.example.com",
-            "www.example2.com"
-        ]
-    })
+    import docx_parser
+
+    html_code = make_html_doc(docx_parser.word_tree("tests/RPA.docx"), "20-23-2023")
     print(html_code)

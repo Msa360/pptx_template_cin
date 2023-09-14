@@ -7,7 +7,7 @@ import re
 import json
 
 
-
+# maps number to superscript
 SUPERSCRIPTS = {
     "0": "\u2070",
     "1": "\u00B9",
@@ -22,7 +22,7 @@ SUPERSCRIPTS = {
 }
 
 def walk_and_find(string: str, object: str):
-    """walks in a string until it finds the object in the string, then return start to end+1"""
+    """walks in a string until it finds the object in the string, then return start index"""
     lenght = len(object)
     for i in range(len(string)-lenght+1):
         if string[i:i+lenght] == object:
