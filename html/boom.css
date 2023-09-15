@@ -186,17 +186,18 @@ div.figure {
   float: right;
   margin: 0 0 3px 2px;
   counter-increment: figure;
-  width: 30%;
+  width: 330px;
   break-inside: avoid;
 }
 div.figure .source-img {
   text-align: right;
   font-size: 0.9em;
+  color: #255b83;
+  padding: 0 15px 0 0;
 }
 
 div.figure .source-img::before {
-  content: "Source ";
-  font-weight: bold;
+  content: "Source";
 }
 
 div.figure .caption {
