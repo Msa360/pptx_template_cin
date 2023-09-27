@@ -5,6 +5,8 @@
     - [Logiciels](#logiciels)
         - [Prince](#princexml)
         - [DocRaptor](#docraptor)
+        - [WeasyPrint](#weasyprint)
+        - [Adobe Acrobat](#adobe-acrobat)
 
 ## Problème
 Les articles de veilles sont rédigés dans le logiciel Word. Pour avoir le rendu PDF conforme au gabarit établi, il faut manuellement tranférer le texte sur PowerPoint, le formater, et l'exporter en PDF.
@@ -24,6 +26,7 @@ Automatiser le formatage du texte grâce à un programme informatique. Le bon fo
 - Premier logiciel à faire ce travail sorti en 2003
 - Le président de la compagnie est Hakon Wium Lie, l'inventeur du CSS et le CTO du fureteur Opera
 - Le plus convénient
+- version 15.1 sortie en 2023
 
 #### [DocRaptor](https://docraptor.com)
 - Solution SaaS 
@@ -37,7 +40,4 @@ Automatiser le formatage du texte grâce à un programme informatique. Le bon fo
 - Source ouverte
 - moins performant
 - usage restreint
-
-
-
 
