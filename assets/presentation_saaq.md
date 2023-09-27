@@ -6,7 +6,6 @@
         - [Prince](#princexml)
         - [DocRaptor](#docraptor)
         - [WeasyPrint](#weasyprint)
-        - [Adobe Acrobat](#adobe-acrobat)
 
 ## Problème
 Les articles de veilles sont rédigés dans le logiciel Word. Pour avoir le rendu PDF conforme au gabarit établi, il faut manuellement tranférer le texte sur PowerPoint, le formater, et l'exporter en PDF.
