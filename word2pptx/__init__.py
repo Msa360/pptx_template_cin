@@ -32,7 +32,7 @@ def check_prince():
         raise Exception("You need to install Prince software") 
     
 
-def transform(input: str, ouput: str, date: str, title_size: float = 24, subtitle_size: float = 10):
+def transform(input: str, ouput: str, date: str, title_size: float = 24, subtitle_size: float = 10, img_path: str = None):
     """
     ### The primary function
     
@@ -44,7 +44,7 @@ def transform(input: str, ouput: str, date: str, title_size: float = 24, subtitl
 
     import tempfile
 
-    html = make_html_doc(word_tree(input), date)
+    html = make_html_doc(word_tree(input), date, img_path)
     html_file = tempfile.NamedTemporaryFile(mode='w', delete=False)
     html_file.write(html)
     html_file.close()

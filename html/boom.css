@@ -81,6 +81,7 @@ h2.subtitle {
   color: #2caa92;
   padding-left: 8px;
   font-size: 11pt;
+  clear: left;
 }
 
 /* texte souligné */
@@ -180,7 +181,6 @@ a.pageref::after { content: " on page " target-counter(attr(href), page); }
 a.figref { content: " Figure " target-counter(attr(href), figure); }
 
 /* figures */
-
 
 div.figure {
   float: right;

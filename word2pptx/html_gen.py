@@ -32,6 +32,20 @@ def make_head(soup: BeautifulSoup, author: str, title: str, subtitle: str, date:
     soup.find('h2', class_="master-subtitle").append(subtitle)
     return soup
 
+def add_figure(soup: BeautifulSoup, path: str, source_number: str = None):
+    div = soup.new_tag('div', attrs={'class': 'figure'})
+    p1 = soup.new_tag('p')
+    p1.append(soup.new_tag('img', attrs={"src": path, 'style': 'width: 100%', "alt": "[image]"}))
+    div.append(p1)
+
+    if type(source_number) == str:
+        p2 = soup.new_tag('p', attrs={'class': 'source-img'})
+        p2.append(source_number)
+        div.append(p2)
+    
+    soup.find('body').append(div)
+    return soup
+
 def add_banner(soup: BeautifulSoup, text: str):
     tag = soup.new_tag('h1', attrs={'class': 'header'})
     tag.append(text)
@@ -75,10 +89,12 @@ def make_backcover(soup: BeautifulSoup, author: str):
     soup.find('body').append(BeautifulSoup(backcover, 'html.parser'))
     return soup
 
-def make_html_doc(tree: dict, date: str):
+def make_html_doc(tree: dict, date: str, img_path: str = None):
     """makes full html file from parsed word document tree"""
     soup = BeautifulSoup(HTML, 'html.parser')
     soup = make_head(soup, tree['author'], tree['title'], tree['subtitle'], date, tree['id'])
+    if img_path != None:
+        soup = add_figure(soup, img_path, str(len(tree['sources'])))
     for part in tree['body']:
         if part['type'] == 'title':
             soup = add_banner(soup, part['content'])

@@ -12,6 +12,7 @@ Les articles de veilles sont rédigés dans le logiciel Word. Pour avoir le rend
 
 - le formatage peut prendre 1 heure voir plus
 - difficile à modifier après-coup
+- uniformisation difficile
 
 ## Solutions
 
@@ -23,7 +24,7 @@ Automatiser le formatage du texte grâce à un programme informatique. Le bon fo
 - Très rapide (~ 1 seconde)
 - Gratuit
 - Premier logiciel à faire ce travail sorti en 2003
-- Le président de la compagnie est Hakon Wium Lie, l'inventeur du CSS et le CTO du fureteur Opera
+- Le président de la compagnie est Håkon Wium Lie, l'inventeur du CSS et le CTO du fureteur Opera
 - Le plus convénient
 - version 15.1 sortie en 2023
 
@@ -37,6 +38,7 @@ Automatiser le formatage du texte grâce à un programme informatique. Le bon fo
 #### [WeasyPrint](https://weasyprint.org)
 - Gratuit
 - Source ouverte
+- mis à jour constamment
 - moins performant
 - usage restreint
 
