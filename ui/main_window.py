@@ -23,7 +23,7 @@ class MainWindow(Tk):
         """
         super().__init__()
 
-        self.title("Word-2-Powerpoint")
+        self.title("Word-2-PDF")
         self.label_bienvenue = Label(text="Veuiller chosir un fichier word a transformer")
         self.label_bienvenue.grid(row=0, column=0, padx=10, pady=10)
 
@@ -57,13 +57,21 @@ class MainWindow(Tk):
         self.subtitle_size = Entry(self, width=30, textvariable=self.subtitle_size_var)
         self.subtitle_size.grid(row=7, column=0, padx=10, pady=0)
 
-        # go
-        self.btn_make_pptx = Button(text="Go", width=20, command=self.make_pptx)
-        self.btn_make_pptx.grid(row=8, column=0, padx=10, pady=10)
+        # image
+        self.btn_img_file = Button(text="Choisir une image (optionnel)", width=20, command=self.choose_image_file)
+        self.btn_img_file.grid(row=8, column=0, padx=10, pady=10)
+
+        self.image_entry_var = tk.StringVar()
+        self.image_entry = Entry(self, width=30, textvariable=self.image_entry_var)
+        self.image_entry.grid(row=9, column=0, padx=10, pady=0)
+
+        # start
+        self.btn_make_document = Button(text="Go", width=20, command=self.make_document)
+        self.btn_make_document.grid(row=10, column=0, padx=10, pady=10)
 
         # help
         self.help_link = Label(text="Aide", font=('Helveticabold', 15), fg="blue")
-        self.help_link.grid(row=9, column=0, padx=10, pady=10)
+        self.help_link.grid(row=11, column=0, padx=10, pady=10)
         self.help_link.bind("<Button-1>", lambda e: webbrowser.open_new_tab("https://github.com/Msa360/word-2-pptx/blob/master/docs.md"))
 
     def choose_input_file(self):
@@ -75,19 +83,24 @@ class MainWindow(Tk):
         dir = filedialog.askdirectory(parent=self, mustexist=True)
         if dir != "":
             self.dir_entry_var.set(dir)
+    
+    def choose_image_file(self):
+        filename = filedialog.askopenfilename(parent=self)
+        if filename != "":
+            self.image_entry_var.set(filename)
 
     def make_output_file(self):
         output_file = os.path.join(self.dir_entry_var.get(), os.path.basename(self.file_entry_var.get()).rsplit(".", 1)[0]+".PDF")
         i = 1
         while os.path.exists(output_file):
             if i == 1:
-                output_file = output_file[:-5] + str(i) + ".PDF"
+                output_file = output_file[:-4] + str(i) + ".PDF"
             else:
-                output_file = output_file[:-6] + str(i) + ".PDF"
+                output_file = output_file[:-5] + str(i) + ".PDF"
             i += 1
         return output_file
 
-    def make_pptx(self):
+    def make_document(self):
         # create a loading window
         # loading_screen = LoadingScreen(self)
         from datetime import datetime
@@ -98,7 +111,8 @@ class MainWindow(Tk):
                 self.make_output_file(),
                 datetime.now().strftime("%d-%m-%Y"),
                 title_size=float(self.title_size_var.get()),
-                subtitle_size=float(self.subtitle_size_var.get())
+                subtitle_size=float(self.subtitle_size_var.get()),
+                img_path=self.image_entry_var.get()
                 )
         except Exception as e:
             loading_screen = StatusScreen(self, str(e))

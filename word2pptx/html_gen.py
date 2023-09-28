@@ -1,6 +1,8 @@
 """Generating the html code"""
 from bs4 import BeautifulSoup
 
+from word2pptx.docx_parser import SUPERSCRIPTS
+
 HTML = """<?xml version="1.0" encoding="iso-8859-1"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
 <html lang="fr">
@@ -94,7 +96,7 @@ def make_html_doc(tree: dict, date: str, img_path: str = None):
     soup = BeautifulSoup(HTML, 'html.parser')
     soup = make_head(soup, tree['author'], tree['title'], tree['subtitle'], date, tree['id'])
     if img_path != None:
-        soup = add_figure(soup, img_path, str(len(tree['sources'])))
+        soup = add_figure(soup, img_path, "".join(SUPERSCRIPTS[char] for char in str(len(tree['sources']))))
     for part in tree['body']:
         if part['type'] == 'title':
             soup = add_banner(soup, part['content'])
