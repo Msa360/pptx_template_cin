@@ -42,3 +42,8 @@ Automatiser le formatage du texte grâce à un programme informatique. Le bon fo
 - moins performant
 - usage restreint
 
+##### Démonstration du programme avec PrinceXML
+
+<video controls>
+    <source src="./demo_prince.mp4" type="video/mp4">
+</video>
