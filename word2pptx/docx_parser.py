@@ -55,7 +55,7 @@ def parse(text: str) -> dict:
         if line == '':
             continue
         
-        elif line[:3] == 'id:':
+        elif line[:3].lower() == 'id:':
             # id
             state_dict['id'] = line[3:].strip()
 
