@@ -4,7 +4,7 @@ run `main.py` to start the complete app
 ## Building
 To build the app as an executable for production:
 ```shell
-pyinstaller --name word-2-pptx --icon=assets/app-icon.ico --onefile --windowed main.py
+pyinstaller --name word-2-pdf --icon=assets/app-icon.ico --onefile --windowed main.py
 ```
 
 ## GitHub release

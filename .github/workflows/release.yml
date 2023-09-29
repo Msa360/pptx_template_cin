@@ -25,14 +25,12 @@ jobs:
 
       - name: Build with PyInstaller
         run: |
-          python -m PyInstaller --name word-2-pptx --icon=assets/app-icon.ico --onefile --windowed main.py
-          Move-Item -Path ".\powerpoints\gabarit_v1.pptx" -Destination ".\dist"
-          python -m PyInstaller --name word-2-pptx --icon=assets/app-icon.ico --onefile --windowed main.py
+          python -m PyInstaller --name word-2-pdf --icon=assets/app-icon.ico --onefile --windowed main.py
 
       - uses: actions/upload-artifact@v3
         with:
-          name: Windows-word-2-pptx
-          path: dist/word-2-pptx.exe
+          name: Windows-word-2-pdf
+          path: dist/word-2-pdf.exe
 
       - name: Create Release
         id: create_release
@@ -55,6 +53,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the Create Release step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-          asset_path: dist/word-2-pptx.exe
-          asset_name: word-2-pptx-Windows-amd64.exe
+          asset_path: dist/word-2-pdf.exe
+          asset_name: word-2-pdf-Windows-amd64.exe
           asset_content_type: application/zip
