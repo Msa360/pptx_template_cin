@@ -26,6 +26,8 @@ jobs:
       - name: Build with PyInstaller
         run: |
           python -m PyInstaller --name word-2-pdf --icon=assets/app-icon.ico --onefile --windowed main.py
+          Move-Item -Path ".\html\boom.css" -Destination ".\dist"
+          python -m PyInstaller --name word-2-pdf --icon=assets/app-icon.ico --onefile --windowed main.py
 
       - uses: actions/upload-artifact@v3
         with:

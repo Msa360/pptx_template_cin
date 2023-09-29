@@ -23,4 +23,8 @@ Pushing a tag to master with the form 'vX.X.X' will trigger a release action, if
 **word2pptx** contains all stuff about handling the parsing of the word file, to making the PDF file. To build the PDF, it uses the software [Prince](https://www.princexml.com), that converts html to PDF. This program first generate html code that is passed to Prince to make a PDF file.
 
 ## Références
-- https://alistapart.com/article/boom/
+- https://alistapart.com/article/boom/ inspiration pour le css
+
+- https://github.com/python-openxml/python-docx/ pour travailler sur des documents word en python
+
+- https://github.com/ShayHill/docx2python/ plus facile d'extraire les notes de bas de pages

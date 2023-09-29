@@ -8,7 +8,7 @@
 2. [Baliser](#les-balises) les sections de l'article (étape très importante!)
 3. Ouvrir Word 2 PDF
 4. Chosir le fichier Word
-5. Choisir le dossier où sera créé le fichier powerpoint
+5. Choisir le dossier où sera créé le fichier PDF
 6. Choisir la taille de la police
 7. Choisir la photo sur la première page\*
 8. Appuyer sur go et attendre qu'une fenêtre de succès apparaisse
