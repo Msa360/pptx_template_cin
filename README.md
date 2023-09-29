@@ -1,11 +1,6 @@
-# Word 2 PDF
+# Word 2 PDF v1.0.0
 
 Facilement convertir un fichier word en un fichier pdf formatté
-
-durée de rendement: < 1s
-
-refs:
-- https://alistapart.com/article/boom/
 
 Voir la [documentation](docs.md) pour l'utilisation
 
